@@ -1,1 +1,12 @@
+.page {
+  font-family: "Inter", sans-serif;
+  background-color: black;
+  color: white;
+}
 
+.page__section {
+  max-width: 880px;
+  width: 100%;
+  position: relative;
+  margin: 0 auto;
+}
