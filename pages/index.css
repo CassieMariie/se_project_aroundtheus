@@ -5,37 +5,3 @@
 @import url("../blocks/profile.css");
 @import url("../blocks/card.css");
 @import url("../blocks/footer.css");
-
-@media screen and (max-width: 320px) {
-  .profile {
-    flex-direction: column;
-  }
-
-  .profile__title {
-    display: flex;
-    justify-content: center;
-    font-size: 22px;
-  }
-
-  .profile__description {
-    display: flex;
-    justify-content: center;
-  }
-
-  .profile__edit-button {
-    margin: 0 auto;
-  }
-
-  .profile__button_add {
-    display: flex;
-    justify-content: center;
-    margin: 36px 0 0 0;
-    width: 100%;
-  }
-
-  .footer__description {
-    padding: 0;
-    padding: 0;
-    margin: 48px 19px 36px;
-  }
-}

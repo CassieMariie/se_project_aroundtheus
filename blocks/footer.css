@@ -4,4 +4,13 @@
   padding-bottom: 60px;
   font-size: 18px;
   font-weight: 400;
+  margin: 0;
+}
+
+@media screen and (max-width: 320px) {
+  .footer__description {
+    padding: 0;
+    padding: 0;
+    margin: 48px 19px 36px 0;
+  }
 }

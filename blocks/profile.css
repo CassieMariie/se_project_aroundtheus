@@ -10,7 +10,6 @@
   grid-template-areas:
     "title button"
     "description description";
-  grid-template-columns: minmax(auto, 373px) auto;
   margin-left: 30px;
 }
 
@@ -20,7 +19,7 @@
   height: 24px;
   grid-area: button;
   margin-left: 18px;
-  border: 1px;
+  border: 1px solid white;
   opacity: 100%;
 }
 
@@ -29,11 +28,11 @@
 }
 
 .profile__button_add {
-  background: transparent url(../images/Add\ Button.svg) center no-repeat;
+  background: transparent url(../images/add-icon.svg) center no-repeat;
   width: 150px;
   height: 50px;
   margin-left: auto;
-  border: none;
+  border: solid white;
   opacity: 100%;
 }
 
@@ -60,4 +59,36 @@
   width: 120px;
   height: 120px;
   border-radius: 50%;
+}
+
+@media screen and (max-width: 320px) {
+  .profile {
+    flex-direction: column;
+  }
+
+  .profile__title {
+    display: flex;
+    justify-content: center;
+    font-size: 22px;
+    margin-right: 10px;
+  }
+
+  .profile__description {
+    display: flex;
+    justify-content: center;
+  }
+
+  .profile__edit-button {
+    width: 18px;
+    height: 18px;
+    margin: auto;
+  }
+
+  .profile__button_add {
+    display: flex;
+    justify-content: center;
+    margin: 36px auto 0;
+    width: 282px;
+    height: 50px;
+  }
 }
