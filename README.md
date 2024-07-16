@@ -3,7 +3,11 @@
 Around The U.S webpage is a project used to show case the different kinds of code students have learned throughout sprints 1, 2, and 3 on TripleTen.
 The technology used throughout this project is HTML and CSS.
 
+https://cassiemariie.github.io/se_project_aroundtheus/
+
 ### Overview
+
+Video Explanation: https://www.loom.com/share/0917882a0bee460ba43ad5725d7d1649?sid=7b814100-ba16-4695-a338-0d0a8eb54dec
 
 - Intro
 - Figma

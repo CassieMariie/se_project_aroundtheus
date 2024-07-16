@@ -6,3 +6,12 @@
   border: none;
   border-bottom: 1px solid rgb(84, 84, 84);
 }
+
+@media screen and (max-width: 320px) {
+  .header__logo {
+    width: 126px;
+    height: 24px;
+    margin-left: 27px;
+    margin-right: 167px;
+  }
+}
