@@ -82,8 +82,7 @@
   }
 
   .profile__info {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
     justify-content: center;
     margin: 26px 0 auto;
   }
@@ -96,6 +95,7 @@
 
   .profile__description {
     margin-left: 10px;
+    text-align: center;
   }
 
   .profile__edit-button {
@@ -113,7 +113,6 @@
 
 @media screen and (max-width: 320px) {
   .profile__description {
-    text-align: center;
     font-size: 14px;
   }
 }
