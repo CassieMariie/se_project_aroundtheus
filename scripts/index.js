@@ -70,7 +70,7 @@ profileEditForm.addEventListener("submit", (event) => {
   event.preventDefault();
   profileTitle.textContent = profileInputTitle.value;
   profileDescription.textContent = profileInputDescription.value;
-  profileModal.classList.remove("modal_opened");
+  closePopup();
 });
 
 initialCards.forEach((cardData) => {
