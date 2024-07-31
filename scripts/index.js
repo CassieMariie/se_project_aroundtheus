@@ -63,7 +63,7 @@ profileEditButton.addEventListener("click", () => {
 });
 
 profileModalClose.addEventListener("click", () => {
-  profileModal.classList.remove("closePopup");
+  closePopup();
 });
 
 profileEditForm.addEventListener("submit", (event) => {
