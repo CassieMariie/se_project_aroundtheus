@@ -25,6 +25,15 @@
   width: 430px;
 }
 
+.modal__open-image_container {
+  background: transparent url();
+  padding: 34px 36px 0;
+  position: relative;
+  border-radius: 10px;
+  margin: 0;
+  width: 430px;
+}
+
 .modal__button-close {
   background-image: url(../images/close-icon.svg);
   background-color: transparent;
