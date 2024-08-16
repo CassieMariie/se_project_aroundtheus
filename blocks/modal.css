@@ -6,14 +6,19 @@
   right: 0;
   z-index: 999;
   padding: 0 19px;
-  display: none;
+  display: flex;
   position: fixed;
   align-items: center;
   justify-content: center;
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0.3s, opacity 0.3s linear;
 }
 
 .modal_opened {
   display: flex;
+  visibility: visible;
+  opacity: 1;
 }
 
 .modal__container {
