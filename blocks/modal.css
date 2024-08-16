@@ -27,11 +27,11 @@
 
 .modal__open-image_container {
   background: transparent url();
-  padding: 34px 36px 0;
+  margin: 34px 36px 0;
   position: relative;
   border-radius: 10px;
-  margin: 0;
-  width: 430px;
+  max-width: 75vw;
+  max-height: 75vh;
 }
 
 .modal__button-close {
@@ -133,5 +133,13 @@
     line-height: 17px;
     text-align: center;
     margin: 0;
+  }
+  .modal__open-image_container {
+    background: transparent url();
+    margin: 34px 36px 0;
+    position: relative;
+    border-radius: 10px;
+    max-width: 75vw;
+    max-height: 75vh;
   }
 }

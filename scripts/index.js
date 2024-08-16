@@ -44,7 +44,7 @@ const cardTemplate =
 
 const openImageModal = document.querySelector("#open-image-modal");
 const openImageClose = document.querySelector("#open-image-close");
-const openCardImage = document.querySelector("#open-card-image");
+const openCardImage = document.querySelector(".image__open-card");
 
 //New Card Elements//
 const addNewCardModal = document.querySelector("#add-card-modal");
@@ -82,9 +82,19 @@ function handleAddCardFormSubmit(evt) {
   closePopup(addNewCardModal);
 }
 
-function handleCardImageClick(evt) {
+function handleCardImageClick(cardData) {
   openCardImage.src = cardData.link;
+  openCardImage.alt = cardData.name;
   openPopup(openImageModal);
+}
+
+function openModal(modal) {
+  modal.classList.add(".modal_popup_closed");
+  modal.classList.remove(".modal_popup_opened");
+  setTimeout(() => {
+    modal.classList.remove("modal_popup_closed");
+    modal.style.visibility = "hidden";
+  }, 500);
 }
 
 //Card Functions//
@@ -103,8 +113,9 @@ function getCardElement(cardData) {
     cardElement.remove(".card__image");
   });
 
-  //cardImageElement.addEventListener("click", () => openPopup(openImageModal));
-  cardImageElement.addEventListener("click", handleCardImageClick);
+  cardImageElement.addEventListener("click", () => {
+    handleCardImageClick(cardData);
+  });
   openImageClose.addEventListener("click", () => closePopup(openImageModal));
 
   cardTitleElement.textContent = cardData.name;
