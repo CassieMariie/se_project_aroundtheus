@@ -139,8 +139,6 @@ addNewCardForm.addEventListener("submit", () => {
   closePopup(addNewCardModal);
 });
 
-//Open Image//
-
 //For Each//
 initialCards.forEach((cardData) => {
   const cardElement = getCardElement(cardData);
