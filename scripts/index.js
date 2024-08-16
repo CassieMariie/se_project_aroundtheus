@@ -88,15 +88,6 @@ function handleCardImageClick(cardData) {
   openPopup(openImageModal);
 }
 
-function openModal(modal) {
-  modal.classList.add(".modal_popup_closed");
-  modal.classList.remove(".modal_popup_opened");
-  setTimeout(() => {
-    modal.classList.remove("modal_popup_closed");
-    modal.style.visibility = "hidden";
-  }, 500);
-}
-
 //Card Functions//
 function getCardElement(cardData) {
   const cardElement = cardTemplate.cloneNode(true);
