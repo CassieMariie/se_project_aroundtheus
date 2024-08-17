@@ -44,7 +44,7 @@ const cardTemplate =
 
 const openImageModal = document.querySelector("#open-image-modal");
 const openImageClose = document.querySelector("#open-image-close");
-const openCardImage = document.querySelector(".image__open-card");
+const openCardImage = document.querySelector(".image__card_open");
 
 //New Card Elements//
 const addNewCardModal = document.querySelector("#add-card-modal");
@@ -101,13 +101,15 @@ function getCardElement(cardData) {
   });
 
   deleteButton.addEventListener("click", () => {
-    cardElement.remove(".card__image");
+    cardElement.remove(".card");
   });
 
   cardImageElement.addEventListener("click", () => {
     handleCardImageClick(cardData);
   });
-  openImageClose.addEventListener("click", () => closePopup(openImageModal));
+  openImageClose.addEventListener("click", () => {
+    closePopup(openImageModal);
+  });
 
   cardTitleElement.textContent = cardData.name;
   cardImageElement.src = cardData.link;
@@ -119,7 +121,7 @@ function getCardElement(cardData) {
 profileEditButton.addEventListener("click", () => {
   profileInputName.value = profileTitle.textContent;
   profileInputDescription.value = profileDescription.textContent;
-  profileEditModal.classList.add("modal_opened");
+  openPopup(profileEditModal);
 });
 profileModalClose.addEventListener("click", () => closePopup(profileEditModal));
 profileEditForm.addEventListener("submit", (event) => {
@@ -132,15 +134,11 @@ profileEditForm.addEventListener("submit", (event) => {
 //New Card Event Listeners//
 addNewCardForm.addEventListener("submit", handleAddCardFormSubmit);
 addNewCardButton.addEventListener("click", () => {
-  addNewCardModal.classList.add("modal_opened");
+  openPopup(addNewCardModal);
 });
 newCardModalClose.addEventListener("click", () => closePopup(addNewCardModal));
-addNewCardForm.addEventListener("submit", () => {
-  closePopup(addNewCardModal);
-});
 
 //For Each//
 initialCards.forEach((cardData) => {
-  const cardElement = getCardElement(cardData);
-  cardsWrap.prepend(cardElement);
+  renderCard(cardData);
 });
