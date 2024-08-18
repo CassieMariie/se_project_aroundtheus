@@ -30,7 +30,7 @@
   width: 430px;
 }
 
-.modal__container_open {
+.modal__open_container {
   background: transparent url();
   margin: 34px 36px 0;
   position: relative;
@@ -139,7 +139,7 @@
     text-align: center;
     margin: 0;
   }
-  .modal__container_open {
+  .modal__open_container {
     background: transparent url();
     margin: 34px 36px 0;
     position: relative;
