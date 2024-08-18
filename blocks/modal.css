@@ -30,13 +30,29 @@
   width: 430px;
 }
 
-.modal__open_container {
+.modal__container_open_image {
   background: transparent url();
   margin: 34px 36px 0;
   position: relative;
   border-radius: 10px;
   max-width: 75vw;
   max-height: 75vh;
+  width: auto;
+  padding: 0;
+}
+
+.modal__image {
+  height: 540px;
+  max-width: 816px;
+  display: flex;
+}
+
+.modal__description {
+  font-family: "Inter", Arial, sans-serif;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 14px;
+  margin: 10px auto;
 }
 
 .modal__button-close {
@@ -139,12 +155,19 @@
     text-align: center;
     margin: 0;
   }
-  .modal__open_container {
+  .modal__container_open_image {
     background: transparent url();
     margin: 34px 36px 0;
     position: relative;
     border-radius: 10px;
     max-width: 75vw;
     max-height: 75vh;
+    width: auto;
+    padding: 0;
+  }
+  .modal__image {
+    height: 299px;
+    max-width: 240px;
+    display: flex;
   }
 }

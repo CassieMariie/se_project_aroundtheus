@@ -49,9 +49,9 @@ const newCardInputTitle = addNewCardModal.querySelector("#card-input-title");
 const newCardInputUrl = addNewCardModal.querySelector("#card-input-url");
 
 //View Image Elements
-const openImageModalDescription = document.querySelector(".image__description");
+const openImageModalDescription = document.querySelector(".modal__description");
 const openImageModal = document.querySelector("#open-image-modal");
-const openCardImage = document.querySelector(".image__card_open");
+const openCardImage = document.querySelector(".modal__image");
 
 //Buttons//
 const profileEditButton = document.querySelector("#profile-edit-button");
@@ -105,7 +105,7 @@ function getCardElement(cardData) {
   });
 
   deleteButton.addEventListener("click", () => {
-    cardElement.remove(cardElement);
+    cardElement.remove();
   });
 
   cardImageElement.addEventListener("click", () => {
