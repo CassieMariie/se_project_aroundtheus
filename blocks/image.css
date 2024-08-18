@@ -2,3 +2,11 @@
   max-width: 75vw;
   max-height: 75vh;
 }
+
+.image__description {
+  font-family: "Inter", Arial, sans-serif;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 14px;
+  margin: 10px auto;
+}

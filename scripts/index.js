@@ -51,6 +51,7 @@ const addNewCardModal = document.querySelector("#add-card-modal");
 const addNewCardForm = addNewCardModal.querySelector("#card-modal-form");
 const newCardInputTitle = addNewCardModal.querySelector("#card-input-title");
 const newCardInputUrl = addNewCardModal.querySelector("#card-input-url");
+const openImageModalDescription = document.querySelector(".image__description");
 
 //Buttons//
 const profileEditButton = document.querySelector("#profile-edit-button");
@@ -79,12 +80,14 @@ function handleAddCardFormSubmit(evt) {
   const name = newCardInputTitle.value;
   const link = newCardInputUrl.value;
   renderCard({ name, link }, cardsWrap);
+  addNewCardForm.reset();
   closePopup(addNewCardModal);
 }
 
 function handleCardImageClick(cardData) {
   openCardImage.src = cardData.link;
   openCardImage.alt = cardData.name;
+  openImageModalDescription.textContent = cardData.name;
   openPopup(openImageModal);
 }
 
