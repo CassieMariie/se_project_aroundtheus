@@ -61,6 +61,8 @@ const profileModalClose = profileEditModal.querySelector(
 const addNewCardButton = document.querySelector(".profile__add-button");
 const newCardModalClose = addNewCardModal.querySelector("#card-modal-close");
 const openImageClose = document.querySelector("#open-image-close");
+const modalForm = document.querySelector(".modal");
+const modalContainer = document.querySelector(".modal__container");
 
 //Functions//
 function closePopup(modal) {
