@@ -35,7 +35,7 @@ const profileInputName = document.querySelector("#profile-input-name");
 const profileInputDescription = document.querySelector(
   "#profile-input-description"
 );
-const profileEditForm = profileEditModal.querySelector("#profile-modal-form");
+const profileEditForm = document.querySelector("#profile-modal-form");
 
 //Card Elements//
 const cardsWrap = document.querySelector(".cards__images");
@@ -61,8 +61,6 @@ const profileModalClose = profileEditModal.querySelector(
 const addNewCardButton = document.querySelector(".profile__add-button");
 const newCardModalClose = addNewCardModal.querySelector("#card-modal-close");
 const openImageClose = document.querySelector("#open-image-close");
-const modalForm = document.querySelector(".modal");
-const modalContainer = document.querySelector(".modal__container");
 
 //Functions//
 function closePopup(modal) {
@@ -92,6 +90,18 @@ function handleCardImageClick(cardData) {
   openCardImage.alt = cardData.name;
   openImageModalDescription.textContent = cardData.name;
   openPopup(openImageModal);
+}
+
+function handleCloseOverlay(evt) {
+  if (evt.target.classList.contains("modal_opened")) {
+    closePopup(openPopup);
+  }
+}
+
+function closeOverlay(evt) {
+  if (evt.target === "mousedown") {
+    handleCloseOverlay(openPopup);
+  }
 }
 
 //Card Functions//
