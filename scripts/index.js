@@ -94,14 +94,14 @@ function handleCardImageClick(cardData) {
 
 function handleCloseOverlay(evt) {
   if (evt.target.classList.contains("modal_opened")) {
-    closePopup(openPopup);
+    const modalOpened = document.querySelector(".modal__opened");
+    closePopup(modalOpened);
   }
 }
 
-function closeOverlay(evt) {
-  if (evt.target === "mousedown") {
-    handleCloseOverlay(openPopup);
-  }
+function overlayClose(modal) {
+  modal.classList.remove("modal_opened");
+  profileEditModal.addEventListener("click", handleCloseOverlay);
 }
 
 //Card Functions//
