@@ -94,14 +94,16 @@ function handleCardImageClick(cardData) {
 
 function handleCloseOverlay(evt) {
   if (evt.target.classList.contains("modal_opened")) {
-    const modalOpened = document.querySelector(".modal__opened");
+    const modalOpened = document.querySelector(".modal_opened");
     closePopup(modalOpened);
   }
 }
 
-function overlayClose(modal) {
-  modal.classList.remove("modal_opened");
-  profileEditModal.addEventListener("click", handleCloseOverlay);
+function handleEscOverlay(evt) {
+  const modalOpened = document.querySelector(".modal_opened");
+  if (evt.key === "Escape") {
+    closePopup(modalOpened);
+  }
 }
 
 //Card Functions//
@@ -153,6 +155,12 @@ newCardModalClose.addEventListener("click", () => closePopup(addNewCardModal));
 openImageClose.addEventListener("click", () => {
   closePopup(openImageModal);
 });
+
+profileEditModal.addEventListener("click", handleCloseOverlay);
+addNewCardModal.addEventListener("click", handleCloseOverlay);
+
+profileEditModal.addEventListener("keydown", handleEscOverlay);
+addNewCardModal.addEventListener("keydown", handleEscOverlay);
 
 //For Each//
 initialCards.forEach((cardData) => {
