@@ -104,7 +104,13 @@ function handleEscOverlay(evt) {
   if (evt.key === "Escape") {
     closePopup(modalOpened);
   }
+  if (modalOpened) {
+    closePopup(modalOpened);
+  }
 }
+
+profileEditModal.addEventListener("keydown", handleEscOverlay);
+addNewCardModal.addEventListener("keydown", handleEscOverlay);
 
 //Card Functions//
 function getCardElement(cardData) {
@@ -158,9 +164,7 @@ openImageClose.addEventListener("click", () => {
 
 profileEditModal.addEventListener("click", handleCloseOverlay);
 addNewCardModal.addEventListener("click", handleCloseOverlay);
-
-profileEditModal.addEventListener("keydown", handleEscOverlay);
-addNewCardModal.addEventListener("keydown", handleEscOverlay);
+openImageModal.addEventListener("click", handleCloseOverlay);
 
 //For Each//
 initialCards.forEach((cardData) => {
