@@ -99,16 +99,22 @@ function handleCloseOverlay(evt) {
   }
 }
 
-function handleEscOverlay(evt) {
+function handleEscape(evt) {
   if (evt.key === "Escape") {
     const modalOpened = document.querySelector(".modal_opened");
-    if (modalOpened) {
-      closePopup(modalOpened);
-    }
+    closePopup(modalOpened);
   }
 }
 
-document.addEventListener("keydown", handleEscOverlay);
+function openModal(modal) {
+  modal.classList.add("modal_opened");
+  document.addEventListener("keydown", handleEscape);
+}
+
+function closeModal(modal) {
+  modal.classList.remove("modal_opened");
+  document.removeEventListener("keydown", handleEscape);
+}
 
 //Card Functions//
 function getCardElement(cardData) {
@@ -160,9 +166,9 @@ openImageClose.addEventListener("click", () => {
   closePopup(openImageModal);
 });
 
-profileEditModal.addEventListener("click", handleCloseOverlay);
-addNewCardModal.addEventListener("click", handleCloseOverlay);
-openImageModal.addEventListener("click", handleCloseOverlay);
+[profileEditModal, addNewCardModal, openImageModal].forEach((modal) => {
+  modal.addEventListener("click", handleCloseOverlay);
+});
 
 //For Each//
 initialCards.forEach((cardData) => {
