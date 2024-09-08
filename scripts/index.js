@@ -100,17 +100,15 @@ function handleCloseOverlay(evt) {
 }
 
 function handleEscOverlay(evt) {
-  const modalOpened = document.querySelector(".modal_opened");
   if (evt.key === "Escape") {
-    closePopup(modalOpened);
-  }
-  if (modalOpened) {
-    closePopup(modalOpened);
+    const modalOpened = document.querySelector(".modal_opened");
+    if (modalOpened) {
+      closePopup(modalOpened);
+    }
   }
 }
 
-profileEditModal.addEventListener("keydown", handleEscOverlay);
-addNewCardModal.addEventListener("keydown", handleEscOverlay);
+document.addEventListener("keydown", handleEscOverlay);
 
 //Card Functions//
 function getCardElement(cardData) {
