@@ -65,10 +65,12 @@ const openImageClose = document.querySelector("#open-image-close");
 //Functions//
 function closePopup(modal) {
   modal.classList.remove("modal_opened");
+  document.removeEventListener("keydown", handleEscape);
 }
 
 function openPopup(modal) {
   modal.classList.add("modal_opened");
+  document.addEventListener("keydown", handleEscape);
 }
 
 function renderCard(cardData) {
@@ -104,16 +106,6 @@ function handleEscape(evt) {
     const modalOpened = document.querySelector(".modal_opened");
     closePopup(modalOpened);
   }
-}
-
-function openModal(modal) {
-  modal.classList.add("modal_opened");
-  document.addEventListener("keydown", handleEscape);
-}
-
-function closeModal(modal) {
-  modal.classList.remove("modal_opened");
-  document.removeEventListener("keydown", handleEscape);
 }
 
 //Card Functions//
