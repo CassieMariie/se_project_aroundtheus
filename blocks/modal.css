@@ -169,7 +169,7 @@
 
 @media screen and (max-width: 760px) {
   .modal__container {
-    padding: 25px 22px;
+    padding: 25px 22px 0;
     width: 282px;
     max-height: 322px;
   }
@@ -186,12 +186,20 @@
     font-size: 18px;
     line-height: 22px;
   }
-  .modal__button-save {
+  .modal__button-save:enabled {
     font-size: 14px;
     line-height: 17px;
     text-align: center;
-    margin: 0;
+    margin: 46px 0 25px;
   }
+
+  .modal__button-save:disabled {
+    font-size: 14px;
+    line-height: 17px;
+    text-align: center;
+    margin: 046px 0 25px;
+  }
+
   .modal__container_open_image {
     background: transparent url();
     margin: 34px 36px 0;

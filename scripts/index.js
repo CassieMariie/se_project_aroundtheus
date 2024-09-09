@@ -96,8 +96,7 @@ function handleCardImageClick(cardData) {
 
 function handleCloseOverlay(evt) {
   if (evt.target.classList.contains("modal_opened")) {
-    const modalOpened = document.querySelector(".modal_opened");
-    closePopup(modalOpened);
+    closePopup(evt.target);
   }
 }
 
