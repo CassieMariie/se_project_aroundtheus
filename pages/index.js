@@ -1,5 +1,5 @@
 import Card from "../components/card.js";
-import FormValidator from "../components/formvalidator.js";
+import FormValidator from "../components/FormValidator.js";
 
 const initialCards = [
   {
@@ -28,6 +28,7 @@ const initialCards = [
   },
 ];
 
+//Components JS//
 console.log(initialCards);
 
 const cardData = {
@@ -35,6 +36,10 @@ const cardData = {
   link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/yosemite.jpg",
 };
 const card = new Card(cardData, "#card-template", handleCardImageClick);
+
+//Validator JS//
+const profileEditForm = document.querySelector("#profile-modal-form");
+const addNewCardForm = document.querySelector("#card-modal-form");
 
 const settings = {
   formSelector: ".modal__form",
@@ -45,12 +50,6 @@ const settings = {
   errorClass: "modal__error_visible",
 };
 
-const formvalidator = new FormValidator(
-  settings,
-  "#card-modal-form",
-  "#profile-modal-form"
-);
-
 //Profile Elements//
 const profileEditModal = document.querySelector("#profile-edit-modal");
 const profileTitle = document.querySelector(".profile__title");
@@ -59,7 +58,6 @@ const profileInputName = document.querySelector("#profile-input-name");
 const profileInputDescription = document.querySelector(
   "#profile-input-description"
 );
-const profileEditForm = document.querySelector("#profile-modal-form");
 
 //Card Elements//
 const cardsWrap = document.querySelector(".cards__images");
@@ -68,7 +66,6 @@ const cardTemplate =
 
 //New Card Elements//
 const addNewCardModal = document.querySelector("#add-card-modal");
-const addNewCardForm = addNewCardModal.querySelector("#card-modal-form");
 const newCardInputTitle = addNewCardModal.querySelector("#card-input-title");
 const newCardInputUrl = addNewCardModal.querySelector("#card-input-url");
 
@@ -177,7 +174,12 @@ openImageClose.addEventListener("click", () => {
   modal.addEventListener("click", handleCloseOverlay);
 });
 
-//For Each//
 initialCards.forEach((cardData) => {
   renderCard(cardData);
 });
+
+//EnableValidation
+const editProfileFormValidator = new FormValidator(settings, profileEditForm);
+const addCardFormValidator = new FormValidator(settings, addNewCardForm);
+editProfileFormValidator.enableValidation();
+addCardFormValidator.enableValidation();
