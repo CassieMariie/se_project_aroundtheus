@@ -1,5 +1,5 @@
 import Card from "../components/card.js";
-//import FormValidator from "../components/formvalidator.js";
+import FormValidator from "../components/formvalidator.js";
 
 const initialCards = [
   {
@@ -34,23 +34,22 @@ const cardData = {
   name: "Yosemite Valley",
   link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/yosemite.jpg",
 };
-
 const card = new Card(cardData, "#card-template", handleCardImageClick);
 
-/**const config = {
+const settings = {
   formSelector: ".modal__form",
   inputSelector: ".modal__input",
   submitButtonSelector: ".modal__button-save",
   inactiveButtonClass: "modal__button-save_inactive",
   inputErrorClass: "modal__input_type_error",
   errorClass: "modal__error_visible",
-};**/
+};
 
-/**const addCardForm = new FormValidator(handleAddCardFormSubmit, config);
-const editProfileForm = new FormValidator("#profile-modal-form", config);
-
-addCardForm._enableValidation();
-editProfileForm._enableValidation();**/
+const formvalidator = new FormValidator(
+  settings,
+  "#card-modal-form",
+  "#profile-modal-form"
+);
 
 //Profile Elements//
 const profileEditModal = document.querySelector("#profile-edit-modal");
@@ -98,8 +97,13 @@ function openPopup(modal) {
   document.addEventListener("keydown", handleEscape);
 }
 
+function createCard(cardData) {
+  const card = new Card(cardData, "#card-template", handleCardImageClick);
+  return card.generateCard();
+}
+
 function renderCard(cardData) {
-  const cardElement = getCardElement(cardData);
+  const cardElement = createCard(cardData);
   cardsWrap.prepend(cardElement);
 }
 
@@ -112,7 +116,7 @@ function handleAddCardFormSubmit(evt) {
   closePopup(addNewCardModal);
 }
 
-function handleCardImageClick(cardData) {
+function handleCardImageClick(card) {
   openCardImage.src = cardData.link;
   openCardImage.alt = cardData.name;
   openImageModalDescription.textContent = cardData.name;
@@ -133,30 +137,6 @@ function handleEscape(evt) {
 }
 
 //Card Functions//
-/**function getCardElement(cardData) {
-  const cardElement = cardTemplate.cloneNode(true);
-  const cardImageElement = cardElement.querySelector(".card__image");
-  const cardTitleElement = cardElement.querySelector(".card__title");
-  const likeButton = cardElement.querySelector(".card__like-button");
-  const deleteButton = cardElement.querySelector(".card__delete-button");
-
-  likeButton.addEventListener("click", () => {
-    likeButton.classList.toggle("card__like-button_active");
-  });
-
-  deleteButton.addEventListener("click", () => {
-    cardElement.remove();
-  });
-
-  cardImageElement.addEventListener("click", () => {
-    handleCardImageClick(cardData);
-  });
-
-  cardTitleElement.textContent = cardData.name;
-  cardImageElement.src = cardData.link;
-  cardImageElement.alt = cardData.name;
-  return cardElement;
-}**/
 
 function getCardElement(card) {
   const cardElement = cardTemplate.cloneNode(true);

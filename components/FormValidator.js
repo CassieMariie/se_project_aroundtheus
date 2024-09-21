@@ -1,40 +1,71 @@
-/**export default class FormValidator {
-  constructor(settings, form) {
-    this._selector = settings.selector;
-    this._classes = settings.classes;
-    this._element = form.element;
+export default class FormValidator {
+  constructor(settings, formEl) {
+    this._formSelector = settings.formSelector;
+    this._inputSelector = settings.inputSelector;
+    this._submitButtonSelector = settings.submitButtonSelector;
+    this._inactiveButtonClass = settings.inactiveButtonClass;
+    this._inputErrorClass = settings.inputErrorClass;
+    this._errorClass = settings.errorClass;
+    this._settings = settings;
+    this._formEl = formEl;
   }
 
-  _enableValidation(addCardForm, editProfileForm) {
-    if (!addCardForm) {
-      showInputError(formEl, inputEl, options);
+  _checkInputValidity(inputEl) {
+    if (!inputEl.validity.valid) {
+      showInputError(this._inputErrorClass, this._errorClass);
     } else {
-      hideInputError(formEl, inputEl, options);
+      hideInputError(this._inputErrorClass);
     }
   }
 
-  showInputError() {
-    const errorMessageEl = this.form.querySelector(`#${inputEl.id}-error`);
-    inputEl.classList.add(this.inputErrorClass);
-    errorMessageEl.textContent = inputEl.validationMessage;
-    errorMessageEl.classList.add(this.errorClass);
+  _showInputError(settings, formEl) {
+    const errorMessageEl = this._inputErrorClass.querySelector(
+      `#${this._inputSelector.id}-error`
+    );
+    inputEl.classList.add(this._inputErrorClass);
+    errorMessageEl.textContent = this._settings.validationMessage;
+    errorMessageEl.classList.add(this._errorClass);
   }
 
-  hideInputError() {
-    const errorMessageEl = this._form.querySelector(`#${inputEl.id}-error`);
-    inputEl.classList.remove(this.inputErrorClass);
+  _hideInputError(settings) {
+    const errorMessageEl = this._settings.querySelector(
+      `#${this._inputSelector.id}-error`
+    );
+    this._settings.classList.remove(this._inputErrorClass);
     errorMessageEl.textContent = "";
-    errorMessageEl.classList.remove(this.errorClass);
+    errorMessageEl.classList.remove(this._errorClass);
   }
 
-  disableSubmitButton() {}
-}
+  enableValidation(addNewCardForm, profileEditForm) {
+    this._formEl.addEventListener("submit", (e) => {
+      e.preventDefault();
+    });
+    setEventListeners(addNewCardForm, profileEditForm);
+  }
 
-const config = {
-  formSelector: ".modal__form",
-  inputSelector: ".modal__input",
-  submitButtonSelector: ".modal__button-save",
-  inactiveButtonClass: "modal__button-save_inactive",
-  inputErrorClass: "modal__input_type_error",
-  errorClass: "modal__error_visible",
-};**/
+  setEventListeners(formEl, settings) {
+    const submitButton = this._submitButtonSelector;
+    this._thisInputSelector.forEach((inputEl) => {
+      inputEl.addEventListener("input", (event) => {
+        checkInputValidity(formEl, inputEl);
+        toggleButtonState(inputEls, submitButton, settings);
+      });
+    });
+  }
+
+  toggleButtonState(inputEls, submitButton) {
+    let foundInvalid = false;
+    inputEls.forEach((inputEl) => {
+      if (!inputEl.validity.valid) {
+        foundInvalid = true;
+      }
+    });
+    if (foundInvalid) {
+      this._settings.classList.add(this._inactiveButtonClass);
+      submitButton.disabled = true;
+    } else {
+      submitButton.classList.remove(this._inactiveButtonClass);
+      submitButton.disabled = false;
+    }
+  }
+}
