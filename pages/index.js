@@ -1,5 +1,5 @@
 import Card from "../components/card.js";
-import FormValidator from "../components/formvalidator.js";
+//import FormValidator from "../components/formvalidator.js";
 
 const initialCards = [
   {
@@ -37,20 +37,20 @@ const cardData = {
 
 const card = new Card(cardData, "#card-template", handleCardImageClick);
 
-const config = {
+/**const config = {
   formSelector: ".modal__form",
   inputSelector: ".modal__input",
   submitButtonSelector: ".modal__button-save",
   inactiveButtonClass: "modal__button-save_inactive",
   inputErrorClass: "modal__input_type_error",
   errorClass: "modal__error_visible",
-};
+};**/
 
-const addCardForm = new FormValidator(handleAddCardFormSubmit, config);
+/**const addCardForm = new FormValidator(handleAddCardFormSubmit, config);
 const editProfileForm = new FormValidator("#profile-modal-form", config);
 
-addCardForm.enableValidation();
-editProfileForm.enableValidation();
+addCardForm._enableValidation();
+editProfileForm._enableValidation();**/
 
 //Profile Elements//
 const profileEditModal = document.querySelector("#profile-edit-modal");
@@ -133,7 +133,7 @@ function handleEscape(evt) {
 }
 
 //Card Functions//
-function getCardElement(cardData) {
+/**function getCardElement(cardData) {
   const cardElement = cardTemplate.cloneNode(true);
   const cardImageElement = cardElement.querySelector(".card__image");
   const cardTitleElement = cardElement.querySelector(".card__title");
@@ -155,6 +155,17 @@ function getCardElement(cardData) {
   cardTitleElement.textContent = cardData.name;
   cardImageElement.src = cardData.link;
   cardImageElement.alt = cardData.name;
+  return cardElement;
+}**/
+
+function getCardElement(card) {
+  const cardElement = cardTemplate.cloneNode(true);
+  const cardImageElement = cardElement.querySelector(".card__image");
+  const cardTitleElement = cardElement.querySelector(".card__title");
+
+  cardTitleElement.textContent = card.name;
+  cardImageElement.src = card.link;
+  cardImageElement.alt = card.name;
   return cardElement;
 }
 

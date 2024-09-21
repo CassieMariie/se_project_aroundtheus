@@ -1,12 +1,12 @@
-export default class FormValidator {
+/**export default class FormValidator {
   constructor(settings, form) {
     this._selector = settings.selector;
     this._classes = settings.classes;
     this._element = form.element;
   }
 
-  _checkFormValidation(inputEl) {
-    if (!inputEl.validity.valid) {
+  _enableValidation(addCardForm, editProfileForm) {
+    if (!addCardForm) {
       showInputError(formEl, inputEl, options);
     } else {
       hideInputError(formEl, inputEl, options);
@@ -29,3 +29,12 @@ export default class FormValidator {
 
   disableSubmitButton() {}
 }
+
+const config = {
+  formSelector: ".modal__form",
+  inputSelector: ".modal__input",
+  submitButtonSelector: ".modal__button-save",
+  inactiveButtonClass: "modal__button-save_inactive",
+  inputErrorClass: "modal__input_type_error",
+  errorClass: "modal__error_visible",
+};**/
