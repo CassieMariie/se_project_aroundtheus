@@ -30,11 +30,13 @@ const initialCards = [
 
 //Components JS//
 console.log(initialCards);
+const openCardImage = document.querySelector(".modal__image");
 
 const cardData = {
   name: "Yosemite Valley",
   link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/yosemite.jpg",
 };
+
 const card = new Card(cardData, "#card-template", handleCardImageClick);
 
 //Validator JS//
@@ -72,7 +74,6 @@ const newCardInputUrl = addNewCardModal.querySelector("#card-input-url");
 //View Image Elements
 const openImageModalDescription = document.querySelector(".modal__description");
 const openImageModal = document.querySelector("#open-image-modal");
-const openCardImage = document.querySelector(".modal__image");
 
 //Buttons//
 const profileEditButton = document.querySelector("#profile-edit-button");
@@ -104,6 +105,12 @@ function renderCard(cardData) {
   cardsWrap.prepend(cardElement);
 }
 
+function disableSubmitButton() {
+  const submitButton = addNewCardForm.querySelector(".modal__button-save");
+  submitButton.classList.add("modal__button-save_inactive");
+  submitButton.disabled = true;
+}
+
 function handleAddCardFormSubmit(evt) {
   evt.preventDefault();
   const name = newCardInputTitle.value;
@@ -111,12 +118,13 @@ function handleAddCardFormSubmit(evt) {
   renderCard({ name, link }, cardsWrap);
   addNewCardForm.reset();
   closePopup(addNewCardModal);
+  disableSubmitButton();
 }
 
-function handleCardImageClick(card) {
-  openCardImage.src = cardData.link;
-  openCardImage.alt = cardData.name;
-  openImageModalDescription.textContent = cardData.name;
+function handleCardImageClick(name, link) {
+  openCardImage.src = link;
+  openCardImage.alt = name;
+  openImageModalDescription.textContent = name;
   openPopup(openImageModal);
 }
 

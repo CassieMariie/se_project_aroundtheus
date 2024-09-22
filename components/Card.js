@@ -33,7 +33,7 @@ export default class Card {
     this._element
       .querySelector(".card__image")
       .addEventListener("click", () => {
-        this._handleCardImageClick(this._link);
+        this._handleCardImageClick(this._name, this._link);
       });
 
     this._element
