@@ -105,11 +105,11 @@ function renderCard(cardData) {
   cardsWrap.prepend(cardElement);
 }
 
-function disableSubmitButton() {
+/*function disableSubmitButton() {
   const submitButton = addNewCardForm.querySelector(".modal__button-save");
   submitButton.classList.add("modal__button-save_inactive");
   submitButton.disabled = true;
-}
+}*/
 
 function handleAddCardFormSubmit(evt) {
   evt.preventDefault();
@@ -118,7 +118,7 @@ function handleAddCardFormSubmit(evt) {
   renderCard({ name, link }, cardsWrap);
   addNewCardForm.reset();
   closePopup(addNewCardModal);
-  disableSubmitButton();
+  // disableSubmitButton();
 }
 
 function handleCardImageClick(name, link) {
