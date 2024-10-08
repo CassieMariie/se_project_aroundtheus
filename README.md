@@ -1,7 +1,7 @@
 # Project 3: Around The U.S.
 
-Around The U.S webpage is a project used to show case the different kinds of code students have learned throughout sprints 1, 2, and 3 on TripleTen.
-The technology used throughout this project is HTML and CSS.
+Around The U.S webpage is a project used to show case the different kinds of code students have learned throughout the lessons they have larned on TripleTen.
+The technology used throughout this project is HTML, CSS, and Javascript.
 
 https://cassiemariie.github.io/se_project_aroundtheus/
 

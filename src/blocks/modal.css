@@ -31,7 +31,7 @@
 }
 
 .modal__container_open_image {
-  background: transparent url();
+  background: transparent;
   margin: 34px 36px 0;
   position: relative;
   border-radius: 10px;
@@ -201,7 +201,7 @@
   }
 
   .modal__container_open_image {
-    background: transparent url();
+    background: transparent;
     margin: 34px 36px 0;
     position: relative;
     border-radius: 10px;
