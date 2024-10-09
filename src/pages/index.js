@@ -173,9 +173,9 @@ newCardModalClose.addEventListener("click", () => {
   addCardPopup.close();
 });
 
-openImageClose.addEventListener("click", () => {
+/*openImageClose.addEventListener("click", () => {
   imagePopup.close();
-});
+});*/
 
 initialCards.forEach((cardData) => {
   renderCard(cardData);
@@ -197,13 +197,10 @@ const SectionCards = new Section(
 );
 
 //PopupWithImage JS//
-const PopupImage = new PopupWithImage(
-  openCardImage.src,
-  openCardImage.alt,
-  openImageModalDescription.textContent
-);
+const popupImage = new PopupWithImage("#open-image-modal");
 
 //PopupWithForms JS//
-const newCardPopup = new PopupWithForms("#add-card-modal", (inputValues) => {
-  handleAddCardFormSubmit;
-});
+const newCardPopup = new PopupWithForms(
+  "#add-card-modal",
+  handleAddCardFormSubmit
+);
