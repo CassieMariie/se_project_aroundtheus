@@ -1,8 +1,10 @@
-import Card from "../components/card.js";
+import Card from "../components/Card.js";
 import FormValidator from "../components/FormValidator.js";
 import "../pages/index.css";
 import Section from "../components/Section.js";
 import Popup from "../components/Popup.js";
+import PopupWithImage from "../components/PopupWithImage.js";
+import PopupWithForms from "../components/PopupWithForms.js";
 
 const initialCards = [
   {
@@ -56,10 +58,14 @@ const settings = {
 };
 
 //Popup JS//
-const myPopup = new Popup({ popupSelector: ".modal", handleCardImageClick });
+const myPopup = new Popup({ popupSelector: ".modal" });
 const imagePopup = new Popup({ popupSelector: "#open-image-modal" });
 const addCardPopup = new Popup({ popupSelector: "#add-card-modal" });
 const editProfilePopup = new Popup({ popupSelector: "#profile-edit-modal" });
+
+editProfilePopup.setEventListeners();
+addCardPopup.setEventListeners();
+imagePopup.setEventListeners();
 
 //Profile Elements//
 const profileEditModal = document.querySelector("#profile-edit-modal");
@@ -129,19 +135,6 @@ function handleCardImageClick(name, link) {
   imagePopup.open();
 }
 
-function handleCloseOverlay(evt) {
-  if (evt.target.classList.contains("modal_opened")) {
-    close(evt.target);
-  }
-}
-
-function handleEscape(evt) {
-  if (evt.key === "Escape") {
-    const modalOpened = document.querySelector(".modal_opened");
-    closePopup(modalOpened);
-  }
-}
-
 //Card Functions//
 
 function getCardElement(card) {
@@ -169,7 +162,7 @@ profileEditForm.addEventListener("submit", (event) => {
   event.preventDefault();
   profileTitle.textContent = profileInputName.value;
   profileDescription.textContent = profileInputDescription.value;
-  closePopup(profileEditModal);
+  editProfilePopup.close();
 });
 
 addNewCardForm.addEventListener("submit", handleAddCardFormSubmit);
@@ -183,10 +176,6 @@ newCardModalClose.addEventListener("click", () => {
 openImageClose.addEventListener("click", () => {
   imagePopup.close();
 });
-
-/*[profileEditModal, addNewCardModal, openImageModal].forEach((modal) => {
-  modal.addEventListeners("click", handleCloseOverlay);
-});*/
 
 initialCards.forEach((cardData) => {
   renderCard(cardData);
@@ -206,3 +195,15 @@ const SectionCards = new Section(
   },
   ".card"
 );
+
+//PopupWithImage JS//
+const PopupImage = new PopupWithImage(
+  openCardImage.src,
+  openCardImage.alt,
+  openImageModalDescription.textContent
+);
+
+//PopupWithForms JS//
+const newCardPopup = new PopupWithForms("#add-card-modal", (inputValues) => {
+  handleAddCardFormSubmit;
+});

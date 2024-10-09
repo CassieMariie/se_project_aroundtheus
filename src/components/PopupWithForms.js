@@ -1,3 +1,30 @@
+import Popup from "./Popup.js";
+
+class PopupWithForms extends Popup {
+  constructor(popupElement, handleFormSubmit) {
+    super(popupElement);
+    this._handleFormSubmit = handleFormSubmit;
+    this._formElement = this._popupSelector.querySelector("#add-card-modal");
+  }
+
+  _getInputValues() {}
+
+  setEventListeners() {
+    super.setEventListeners();
+    this._formElement.addEventListener("submit", (evt) => {
+      evt.preventDefault();
+      this._handleFormSubmit(this._getInputValues());
+    });
+  }
+
+  close() {
+    super.close();
+    this._formElement.reset();
+  }
+}
+
+export default PopupWithForms;
+
 /*Class PopupWithForms
 
 Child of popup
