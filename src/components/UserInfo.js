@@ -1,12 +1,18 @@
 export default class UserInfo {
-  constructor() {}
+  constructor(profileSelector, jobSelector) {
+    this._profileElement = document.querySelector(profileSelector);
+    this._jobElement = document.querySelector(jobSelector);
+  }
+
+  getUserInfo() {
+    return {
+      title: this._profileElement.textContent,
+      description: this._jobElement.textContent,
+    };
+  }
+
+  setUserInfo({ title, description }) {
+    this._profileElement.textContent = title;
+    this._jobElement.textContent = description;
+  }
 }
-
-/* Class UserInfo
-
-Renders information about user on the page
-
-Recheck website for clarification instructions
-*/
-
-/*fix favicon when done with this class!*/

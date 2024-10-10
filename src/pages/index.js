@@ -58,10 +58,10 @@ const settings = {
 };
 
 //Popup JS//
-const myPopup = new Popup({ popupSelector: ".modal" });
-const imagePopup = new Popup({ popupSelector: "#open-image-modal" });
-const addCardPopup = new Popup({ popupSelector: "#add-card-modal" });
-const editProfilePopup = new Popup({ popupSelector: "#profile-edit-modal" });
+const myPopup = new Popup(".modal");
+const imagePopup = new Popup("#open-image-modal");
+const addCardPopup = new Popup("#add-card-modal");
+const editProfilePopup = new Popup("#profile-edit-modal");
 
 editProfilePopup.setEventListeners();
 addCardPopup.setEventListeners();
@@ -120,12 +120,14 @@ function renderCard(cardData) {
 
 function handleAddCardFormSubmit(evt) {
   evt.preventDefault();
-  const name = newCardInputTitle.value;
-  const link = newCardInputUrl.value;
-  renderCard({ name, link }, cardsWrap);
-  addNewCardForm.reset();
-  addCardPopup.close();
-  addCardFormValidator.disableSubmitButton();
+  const name = newCardInputTitle.value.trim();
+  const link = newCardInputUrl.value.trim();
+
+  if (name && link) {
+    renderCard({ name, link }, cardsWrap);
+    addCardPopup.close();
+    addCardFormValidator.disableSubmitButton();
+  }
 }
 
 function handleCardImageClick(name, link) {
@@ -165,7 +167,6 @@ profileEditForm.addEventListener("submit", (event) => {
   editProfilePopup.close();
 });
 
-addNewCardForm.addEventListener("submit", handleAddCardFormSubmit);
 addNewCardButton.addEventListener("click", () => {
   addCardPopup.open();
 });
@@ -173,9 +174,9 @@ newCardModalClose.addEventListener("click", () => {
   addCardPopup.close();
 });
 
-/*openImageClose.addEventListener("click", () => {
+openImageClose.addEventListener("click", () => {
   imagePopup.close();
-});*/
+});
 
 initialCards.forEach((cardData) => {
   renderCard(cardData);
@@ -204,3 +205,4 @@ const newCardPopup = new PopupWithForms(
   "#add-card-modal",
   handleAddCardFormSubmit
 );
+newCardPopup.setEventListeners();

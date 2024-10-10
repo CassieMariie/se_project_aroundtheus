@@ -1,5 +1,5 @@
 export default class Popup {
-  constructor({ popupSelector }) {
+  constructor(popupSelector) {
     this._popupElement = document.querySelector(popupSelector);
     if (!this._popupElement) {
       throw new Error(`Element not found with selector: ${popupSelector}`);
