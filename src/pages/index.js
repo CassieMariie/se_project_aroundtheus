@@ -5,33 +5,17 @@ import Section from "../components/Section.js";
 import Popup from "../components/Popup.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithForms from "../components/PopupWithForms.js";
-
-const initialCards = [
-  {
-    name: "Yosemite Valley",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/yosemite.jpg",
-  },
-  {
-    name: "Lake Louise",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/lake-louise.jpg",
-  },
-  {
-    name: "Bald Mountains",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/bald-mountains.jpg",
-  },
-  {
-    name: "Latemar",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/latemar.jpg",
-  },
-  {
-    name: "Vanoise National Park",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/vanoise.jpg",
-  },
-  {
-    name: "Lago di Braies",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/lago.jpg",
-  },
-];
+import {
+  initialCards,
+  profileEditButton,
+  profileModalClose,
+  addNewCardButton,
+  newCardModalClose,
+  openImageClose,
+  cardsWrap,
+  openImageModalDescription,
+} from "../utils/constants.js";
+import UserInfo from "../components/Userinfo.js";
 
 //Components JS//
 console.log(initialCards);
@@ -67,37 +51,8 @@ editProfilePopup.setEventListeners();
 addCardPopup.setEventListeners();
 imagePopup.setEventListeners();
 
-//Profile Elements//
-const profileEditModal = document.querySelector("#profile-edit-modal");
-const profileTitle = document.querySelector(".profile__title");
-const profileDescription = document.querySelector(".profile__description");
-const profileInputName = document.querySelector("#profile-input-name");
-const profileInputDescription = document.querySelector(
-  "#profile-input-description"
-);
-
-//Card Elements//
-const cardsWrap = document.querySelector(".cards__images");
-const cardTemplate =
-  document.querySelector("#card-template").content.firstElementChild;
-
-//New Card Elements//
-const addNewCardModal = document.querySelector("#add-card-modal");
-const newCardInputTitle = addNewCardModal.querySelector("#card-input-title");
-const newCardInputUrl = addNewCardModal.querySelector("#card-input-url");
-
-//View Image Elements
-const openImageModalDescription = document.querySelector(".modal__description");
-const openImageModal = document.querySelector("#open-image-modal");
-
-//Buttons//
-const profileEditButton = document.querySelector("#profile-edit-button");
-const profileModalClose = profileEditModal.querySelector(
-  "#profile-modal-close"
-);
-const addNewCardButton = document.querySelector(".profile__add-button");
-const newCardModalClose = addNewCardModal.querySelector("#card-modal-close");
-const openImageClose = document.querySelector("#open-image-close");
+//UserInfo JS//
+const userInfo = new UserInfo(".profile__title", ".profile__description");
 
 //Functions//
 function close() {
@@ -137,19 +92,6 @@ function handleCardImageClick(name, link) {
   imagePopup.open();
 }
 
-//Card Functions//
-
-function getCardElement(card) {
-  const cardElement = cardTemplate.cloneNode(true);
-  const cardImageElement = cardElement.querySelector(".card__image");
-  const cardTitleElement = cardElement.querySelector(".card__title");
-
-  cardTitleElement.textContent = card.name;
-  cardImageElement.src = card.link;
-  cardImageElement.alt = card.name;
-  return cardElement;
-}
-
 //Event Listeners//
 profileEditButton.addEventListener("click", () => {
   profileInputName.value = profileTitle.textContent;
@@ -160,6 +102,7 @@ profileEditButton.addEventListener("click", () => {
 profileModalClose.addEventListener("click", () => {
   editProfilePopup.close();
 });
+
 profileEditForm.addEventListener("submit", (event) => {
   event.preventDefault();
   profileTitle.textContent = profileInputName.value;
