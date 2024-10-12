@@ -5,20 +5,11 @@ import Section from "../components/Section.js";
 import Popup from "../components/Popup.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithForms from "../components/PopupWithForms.js";
-import {
-  initialCards,
-  profileEditButton,
-  profileModalClose,
-  addNewCardButton,
-  newCardModalClose,
-  openImageClose,
-  cardsWrap,
-  openImageModalDescription,
-} from "../utils/constants.js";
+import * as constants from "../utils/constants.js";
 import UserInfo from "../components/Userinfo.js";
 
 //Components JS//
-console.log(initialCards);
+console.log(constants.initialCards);
 const openCardImage = document.querySelector(".modal__image");
 
 const cardData = {
@@ -70,16 +61,16 @@ function createCard(cardData) {
 
 function renderCard(cardData) {
   const cardElement = createCard(cardData);
-  cardsWrap.prepend(cardElement);
+  constants.cardsWrap.prepend(cardElement);
 }
 
 function handleAddCardFormSubmit(evt) {
   evt.preventDefault();
-  const name = newCardInputTitle.value.trim();
-  const link = newCardInputUrl.value.trim();
+  const name = constants.newCardInputTitle.value.trim();
+  const link = constants.newCardInputUrl.value.trim();
 
   if (name && link) {
-    renderCard({ name, link }, cardsWrap);
+    renderCard({ name, link }, constants.cardsWrap);
     addCardPopup.close();
     addCardFormValidator.disableSubmitButton();
   }
@@ -88,40 +79,43 @@ function handleAddCardFormSubmit(evt) {
 function handleCardImageClick(name, link) {
   openCardImage.src = link;
   openCardImage.alt = name;
-  openImageModalDescription.textContent = name;
+  constants.openImageModalDescription.textContent = name;
   imagePopup.open();
 }
 
 //Event Listeners//
-profileEditButton.addEventListener("click", () => {
-  profileInputName.value = profileTitle.textContent;
-  profileInputDescription.value = profileDescription.textContent;
+
+constants.profileEditButton.addEventListener("click", () => {
+  const { title, description } = userInfo.getUserInfo();
+  constants.profileInputName.value = title;
+  constants.profileInputDescription.value = description;
   editProfilePopup.open();
 });
 
-profileModalClose.addEventListener("click", () => {
+constants.profileModalClose.addEventListener("click", () => {
   editProfilePopup.close();
 });
 
 profileEditForm.addEventListener("submit", (event) => {
   event.preventDefault();
-  profileTitle.textContent = profileInputName.value;
-  profileDescription.textContent = profileInputDescription.value;
+  constants.profileTitle.textContent = constants.profileInputName.value;
+  constants.profileDescription.textContent =
+    constants.profileInputDescription.value;
   editProfilePopup.close();
 });
 
-addNewCardButton.addEventListener("click", () => {
+constants.addNewCardButton.addEventListener("click", () => {
   addCardPopup.open();
 });
-newCardModalClose.addEventListener("click", () => {
+constants.newCardModalClose.addEventListener("click", () => {
   addCardPopup.close();
 });
 
-openImageClose.addEventListener("click", () => {
+constants.openImageClose.addEventListener("click", () => {
   imagePopup.close();
 });
 
-initialCards.forEach((cardData) => {
+constants.initialCards.forEach((cardData) => {
   renderCard(cardData);
 });
 
@@ -134,7 +128,7 @@ addCardFormValidator.enableValidation();
 //Section JS//
 const SectionCards = new Section(
   {
-    items: initialCards,
+    items: constants.initialCards,
     renderer: cardData,
   },
   ".card"
