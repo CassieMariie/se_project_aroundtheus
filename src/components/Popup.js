@@ -1,20 +1,15 @@
 export default class Popup {
-  constructor(popupSelector) {
+  constructor({ popupSelector }) {
     this._popupElement = document.querySelector(popupSelector);
-    if (!this._popupElement) {
-      throw new Error(`Element not found with selector: ${popupSelector}`);
-    }
   }
 
   open() {
-    const modal = this._popupElement;
-    modal.classList.add("modal_opened");
+    this._popupElement.classList.add("modal_opened");
     document.addEventListener("keydown", this._handleEscape.bind(this));
   }
 
   close() {
-    const modal = this._popupElement;
-    modal.classList.remove("modal_opened");
+    this._popupElement.classList.remove("modal_opened");
     document.removeEventListener("keydown", this._handleEscape.bind(this));
   }
 
@@ -25,8 +20,12 @@ export default class Popup {
   }
 
   setEventListeners() {
-    const modal = this._popupElement;
-    modal.addEventListener("click", (evt) => {
+    this._popupElement
+      .querySelector(".modal__button-close")
+      .addEventListener("click", () => {
+        this.close();
+      });
+    this._popupElement.addEventListener("click", (evt) => {
       if (evt.target.classList.contains("modal_opened")) {
         this.close();
       }
