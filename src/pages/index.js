@@ -40,8 +40,7 @@ const sectionCards = new Section(
   {
     items: constants.initialCards,
     renderer: (cardData) => {
-      const cardElement = createCard(cardData);
-      sectionCards.addItem(cardElement);
+      renderCard(cardData);
     },
   },
   ".cards__images"
@@ -61,16 +60,17 @@ function renderCard(cardData) {
 
 function handleAddCardFormSubmit(evt) {
   evt.preventDefault();
-  const inputData = newCardPopup._getInputValues();
+  const inputData = newCardPopup.getInput();
   const { card__title, card__url } = inputData;
   renderCard({ name: card__title, link: card__url });
   addCardFormValidator.disableSubmitButton();
   newCardPopup.close();
+  evt.target.reset();
 }
 
 function handleEditSubmit(evt) {
   evt.preventDefault();
-  const inputData = profileEditPopup._getInputValues();
+  const inputData = profileEditPopup.getInput();
   userInfo.setUserInfo({
     title: inputData.profile__name,
     description: inputData.profile__description,
@@ -92,9 +92,6 @@ constants.profileEditButton.addEventListener("click", () => {
 
 constants.addNewCardButton.addEventListener("click", () => {
   newCardPopup.open();
-});
-constants.openImageClose.addEventListener("click", () => {
-  popupImage.close();
 });
 
 //EnableValidation
