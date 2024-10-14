@@ -3,21 +3,14 @@ import FormValidator from "../components/FormValidator.js";
 import "../pages/index.css";
 import Section from "../components/Section.js";
 import PopupWithImage from "../components/PopupWithImage.js";
-import PopupWithForms from "../components/PopupWithForms.js";
+import PopupWithForm from "../components/PopupWithForm.js";
 import * as constants from "../utils/constants.js";
-import UserInfo from "../components/Userinfo.js";
+import UserInfo from "../components/UserInfo.js";
+import { data } from "autoprefixer";
 
 //Validator JS//
 const profileEditForm = document.querySelector("#profile-modal-form");
 const addNewCardForm = document.querySelector("#card-modal-form");
-const settings = {
-  formSelector: ".modal__form",
-  inputSelector: ".modal__input",
-  submitButtonSelector: ".modal__button-save",
-  inactiveButtonClass: "modal__button-save_inactive",
-  inputErrorClass: "modal__input_type_error",
-  errorClass: "modal__error_visible",
-};
 
 //UserInfo JS//
 const userInfo = new UserInfo({
@@ -30,13 +23,13 @@ const popupImage = new PopupWithImage({ popupSelector: "#open-image-modal" });
 popupImage.setEventListeners();
 
 //PopupWithForms JS//
-const newCardPopup = new PopupWithForms(
+const newCardPopup = new PopupWithForm(
   { popupSelector: "#add-card-modal" },
   handleAddCardFormSubmit
 );
 newCardPopup.setEventListeners();
 
-const profileEditPopup = new PopupWithForms(
+const profileEditPopup = new PopupWithForm(
   { popupSelector: "#profile-edit-modal" },
   handleEditSubmit
 );
@@ -47,12 +40,13 @@ const sectionCards = new Section(
   {
     items: constants.initialCards,
     renderer: (cardData) => {
-      renderCard(cardData);
+      const cardElement = createCard(cardData);
+      sectionCards.addItem(cardElement);
     },
   },
   ".cards__images"
 );
-sectionCards.renderItems();
+sectionCards.renderItems(constants.initialCards);
 
 //Functions//
 function createCard(cardData) {
@@ -61,27 +55,26 @@ function createCard(cardData) {
 }
 
 function renderCard(cardData) {
-  const cardList = document.querySelector(".cards__images");
-  cardList.prepend(createCard(cardData));
+  const cardElement = createCard(cardData);
+  sectionCards.addItem(cardElement);
 }
 
 function handleAddCardFormSubmit(evt) {
   evt.preventDefault();
-  const name = document.querySelector("#card-input-title").value.trim();
-  const link = document.querySelector("#card-input-url").value.trim();
-  const inputData = { name, link };
-  renderCard(inputData);
+  const inputData = newCardPopup._getInputValues();
+  const { card__title, card__url } = inputData;
+  renderCard({ name: card__title, link: card__url });
   addCardFormValidator.disableSubmitButton();
   newCardPopup.close();
 }
 
 function handleEditSubmit(evt) {
   evt.preventDefault();
-  const title = document.querySelector("#profile-input-name").value.trim();
-  const description = document
-    .querySelector("#profile-input-description")
-    .value.trim();
-  userInfo.setUserInfo({ title, description });
+  const inputData = profileEditPopup._getInputValues();
+  userInfo.setUserInfo({
+    title: inputData.profile__name,
+    description: inputData.profile__description,
+  });
   profileEditPopup.close();
 }
 
@@ -96,21 +89,22 @@ constants.profileEditButton.addEventListener("click", () => {
   constants.profileInputDescription.value = description;
   profileEditPopup.open();
 });
-constants.profileModalClose.addEventListener("click", () => {
-  profileEditPopup.close();
-});
+
 constants.addNewCardButton.addEventListener("click", () => {
   newCardPopup.open();
-});
-constants.newCardModalClose.addEventListener("click", () => {
-  newCardPopup.close();
 });
 constants.openImageClose.addEventListener("click", () => {
   popupImage.close();
 });
 
 //EnableValidation
-const editProfileFormValidator = new FormValidator(settings, profileEditForm);
-const addCardFormValidator = new FormValidator(settings, addNewCardForm);
+const editProfileFormValidator = new FormValidator(
+  constants.settings,
+  profileEditForm
+);
+const addCardFormValidator = new FormValidator(
+  constants.settings,
+  addNewCardForm
+);
 editProfileFormValidator.enableValidation();
 addCardFormValidator.enableValidation();

@@ -25,6 +25,15 @@ export const initialCards = [
   },
 ];
 
+export const settings = {
+  formSelector: ".modal__form",
+  inputSelector: ".modal__input",
+  submitButtonSelector: ".modal__button-save",
+  inactiveButtonClass: "modal__button-save_inactive",
+  inputErrorClass: "modal__input_type_error",
+  errorClass: "modal__error_visible",
+};
+
 //Profile Elements//
 export const profileEditModal = document.querySelector("#profile-edit-modal");
 export const profileTitle = document.querySelector(".profile__title");

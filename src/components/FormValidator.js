@@ -38,7 +38,7 @@ export default class FormValidator {
       }
     });
     if (foundInvalid) {
-      this.disableSubmitButton(foundInvalid);
+      this.disableSubmitButton();
     } else {
       this.enableSubmitButton();
     }
