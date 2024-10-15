@@ -58,19 +58,15 @@ function renderCard(cardData) {
   sectionCards.addItem(cardElement);
 }
 
-function handleAddCardFormSubmit(evt) {
-  evt.preventDefault();
-  const inputData = newCardPopup.getInput();
+function handleAddCardFormSubmit(inputData) {
   const { card__title, card__url } = inputData;
   renderCard({ name: card__title, link: card__url });
   addCardFormValidator.disableSubmitButton();
   newCardPopup.close();
-  evt.target.reset();
+  addNewCardForm.reset();
 }
 
-function handleEditSubmit(evt) {
-  evt.preventDefault();
-  const inputData = profileEditPopup.getInput();
+function handleEditSubmit(inputData) {
   userInfo.setUserInfo({
     title: inputData.profile__name,
     description: inputData.profile__description,
