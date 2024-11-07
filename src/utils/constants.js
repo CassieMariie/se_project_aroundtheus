@@ -49,6 +49,7 @@ export const profileInputDescription = document.querySelector(
 export const cardsWrap = document.querySelector(".cards__images");
 export const cardTemplate =
   document.querySelector("#card-template").content.firstElementChild;
+export const cardDelete = document.querySelectorAll(".card__delete-button");
 
 //New Card Elements//
 export const addNewCardModal = document.querySelector("#add-card-modal");

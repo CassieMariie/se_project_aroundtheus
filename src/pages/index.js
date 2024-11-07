@@ -6,11 +6,20 @@ import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import * as constants from "../utils/constants.js";
 import UserInfo from "../components/UserInfo.js";
+import Api from "../components/Api.js";
 import { data } from "autoprefixer";
 
 //Validator JS//
 const profileEditForm = document.querySelector("#profile-modal-form");
 const addNewCardForm = document.querySelector("#card-modal-form");
+
+//Api JS//
+const api = new Api({
+  baseUrl: "https://around-api.en.tripleten-services.com/v1",
+  headers: {
+    authorization: "1abc7623-f84f-4d03-9121-da2d9a4553b4",
+  },
+});
 
 //UserInfo JS//
 const userInfo = new UserInfo({
@@ -45,7 +54,11 @@ const sectionCards = new Section(
   },
   ".cards__images"
 );
-sectionCards.renderItems(constants.initialCards);
+//sectionCards.renderItems(constants.initialCards); delete later
+
+api.getInitialCards().then((cards) => {
+  sectionCards.renderItems(cards);
+});
 
 //Functions//
 function createCard(cardData) {
@@ -88,6 +101,24 @@ constants.profileEditButton.addEventListener("click", () => {
 
 constants.addNewCardButton.addEventListener("click", () => {
   newCardPopup.open();
+});
+
+constants.cardDelete.forEach((button) => {
+  button.addEventListener("click", () => {
+    const deleteCardModal = document.querySelector("#delete-image-modal");
+    deleteCardModal.open();
+    confirmationButton.addEventListener("click", () => {
+      const cardId = document.querySelector("cards__images");
+      api
+        .deleteCard(cardId)
+        .then(() => {
+          cardId.delete();
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    });
+  });
 });
 
 //EnableValidation
