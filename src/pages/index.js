@@ -57,7 +57,7 @@ const sectionCards = new Section(
 //sectionCards.renderItems(constants.initialCards); delete later
 
 api.getInitialCards().then((cards) => {
-  sectionCards.renderItems(cards);
+  sectionCards.renderItems(constants.initialCards);
 });
 
 //Functions//
@@ -91,6 +91,12 @@ function handleCardImageClick(name, link) {
   popupImage.open(name, link);
 }
 
+function handleDeleteCard(card) {
+  const deleteModal = document.querySelector("#delete-image-modal");
+  deleteModal.open();
+  setSubmitFunction(deleteModal);
+}
+
 //Event Listeners//
 constants.profileEditButton.addEventListener("click", () => {
   const { title, description } = userInfo.getUserInfo();
@@ -104,9 +110,9 @@ constants.addNewCardButton.addEventListener("click", () => {
 });
 
 constants.cardDelete.forEach((button) => {
-  button.addEventListener("click", () => {
-    const deleteCardModal = document.querySelector("#delete-image-modal");
-    deleteCardModal.open();
+  const deleteCardModal = document.querySelector("#delete-image-modal");
+  deleteCardModal.addEventListener("click", () => {
+    handleDeleteCard.open();
     confirmationButton.addEventListener("click", () => {
       const cardId = document.querySelector("cards__images");
       api
