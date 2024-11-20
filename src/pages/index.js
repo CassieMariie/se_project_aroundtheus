@@ -7,6 +7,7 @@ import PopupWithForm from "../components/PopupWithForm.js";
 import * as constants from "../utils/constants.js";
 import UserInfo from "../components/UserInfo.js";
 import Api from "../components/Api.js";
+import PopupWithConfirmation from "../components/PopupWithConfirmation.js";
 import { data } from "autoprefixer";
 
 //Validator JS//
@@ -44,6 +45,14 @@ const profileEditPopup = new PopupWithForm(
 );
 profileEditPopup.setEventListeners();
 
+const card = new Card(handleDeleteCard);
+//const modalWithConfirm = new PopupWithConfirmation("#delete-image-modal");
+//modalWithConfirm.setEventListeners();
+document.addEventListener("DOMContentLoaded", () => {
+  const modalWithConfirm = new PopupWithConfirmation("#delete-image-modal");
+  modalWithConfirm.setEventListeners();
+});
+
 //Section JS//
 const sectionCards = new Section(
   {
@@ -54,7 +63,7 @@ const sectionCards = new Section(
   },
   ".cards__images"
 );
-//sectionCards.renderItems(constants.initialCards); delete later
+//sectionCards.renderItems(constants.initialCards); delete later\
 
 api.getInitialCards().then((cards) => {
   sectionCards.renderItems(constants.initialCards);
@@ -91,10 +100,16 @@ function handleCardImageClick(name, link) {
   popupImage.open(name, link);
 }
 
-function handleDeleteCard(card) {
-  const deleteModal = document.querySelector("#delete-image-modal");
-  deleteModal.open();
-  setSubmitFunction(deleteModal);
+function handleDeleteCard(cardId) {
+  modalWithConfirm.setSubmitFunction(() => {
+    api
+      .deleteCard(cardId)
+      .then(() => {
+        constants.cardDelete.open();
+      })
+      .catch((err) => console.error(err));
+  });
+  modalWithConfirm.open();
 }
 
 //Event Listeners//
@@ -109,21 +124,21 @@ constants.addNewCardButton.addEventListener("click", () => {
   newCardPopup.open();
 });
 
+/*constants.cardDelete.addEventListener("click", () => {
+  this._handleDeleteCard(this._data.cardId);
+});
+
 constants.cardDelete.forEach((button) => {
-  const deleteCardModal = document.querySelector("#delete-image-modal");
-  deleteCardModal.addEventListener("click", () => {
-    handleDeleteCard.open();
-    confirmationButton.addEventListener("click", () => {
-      const cardId = document.querySelector("cards__images");
-      api
-        .deleteCard(cardId)
-        .then(() => {
-          cardId.delete();
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    });
+  button.addEventListener("click", () => {
+    handleDeleteCard();
+  });
+});*/
+
+const cardDelete = document.querySelectorAll(".delete-button-class");
+
+cardDelete.forEach((button) => {
+  button.addEventListener("click", () => {
+    handleDeleteCard();
   });
 });
 
@@ -138,3 +153,8 @@ const addCardFormValidator = new FormValidator(
 );
 editProfileFormValidator.enableValidation();
 addCardFormValidator.enableValidation();
+
+document.addEventListener("DOMContentLoaded", () => {
+  const modalWithConfirm = new PopupWithConfirmation("#delete-modal");
+  modalWithConfirm.setEventListeners();
+});
