@@ -45,11 +45,11 @@ const profileEditPopup = new PopupWithForm(
 );
 profileEditPopup.setEventListeners();
 
-const card = new Card(handleDeleteCard);
-//const modalWithConfirm = new PopupWithConfirmation("#delete-image-modal");
-//modalWithConfirm.setEventListeners();
+const card = new Card(constants.initialCards);
+
+//PopupWithConfirmation
+const modalWithConfirm = new PopupWithConfirmation("#delete-image-modal");
 document.addEventListener("DOMContentLoaded", () => {
-  const modalWithConfirm = new PopupWithConfirmation("#delete-image-modal");
   modalWithConfirm.setEventListeners();
 });
 
@@ -100,12 +100,15 @@ function handleCardImageClick(name, link) {
   popupImage.open(name, link);
 }
 
-function handleDeleteCard(cardId) {
+const cardDelete = document.querySelectorAll("#delete-image-close");
+//const cardDeleteModal = document.querySelectorAll("#delete-image-modal");
+
+function handleDeleteCard(card) {
   modalWithConfirm.setSubmitFunction(() => {
     api
-      .deleteCard(cardId)
+      .deleteCard(card)
       .then(() => {
-        constants.cardDelete.open();
+        card.remove();
       })
       .catch((err) => console.error(err));
   });
@@ -124,21 +127,10 @@ constants.addNewCardButton.addEventListener("click", () => {
   newCardPopup.open();
 });
 
-/*constants.cardDelete.addEventListener("click", () => {
-  this._handleDeleteCard(this._data.cardId);
-});
-
 constants.cardDelete.forEach((button) => {
-  button.addEventListener("click", () => {
-    handleDeleteCard();
-  });
-});*/
-
-const cardDelete = document.querySelectorAll(".delete-button-class");
-
-cardDelete.forEach((button) => {
-  button.addEventListener("click", () => {
-    handleDeleteCard();
+  button.addEventListener("click", (event) => {
+    handleDeleteCard(event.target.closest(card));
+    console.log("Button clicked");
   });
 });
 
@@ -153,8 +145,3 @@ const addCardFormValidator = new FormValidator(
 );
 editProfileFormValidator.enableValidation();
 addCardFormValidator.enableValidation();
-
-document.addEventListener("DOMContentLoaded", () => {
-  const modalWithConfirm = new PopupWithConfirmation("#delete-modal");
-  modalWithConfirm.setEventListeners();
-});
