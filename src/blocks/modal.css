@@ -41,6 +41,12 @@
   padding: 0;
 }
 
+.modal__delete_card {
+  width: 440px;
+  height: 181px;
+  padding: 0;
+}
+
 .modal__image {
   height: 540px;
   max-width: 816px;
@@ -73,6 +79,14 @@
 .modal__button-close:hover {
   opacity: 60%;
   cursor: pointer;
+}
+
+.modal__button-submit {
+  background-color: #000;
+  height: 50px;
+  width: 358px;
+  margin: 0 36px 36px 36px;
+  color: #fff;
 }
 
 .modal__form {
@@ -129,6 +143,12 @@
   color: #ff0000;
   position: absolute;
   margin: 90px 0 0;
+}
+
+.modal__message {
+  color: #000;
+  margin: 34px 36px 36px;
+  padding: 0;
 }
 
 .modal__button-save:enabled {

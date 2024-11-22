@@ -72,6 +72,11 @@
   border-radius: 50%;
 }
 
+.profile__image:hover {
+  background: rgba(0, 0, 0, 50%) url(../images/jacques-cousteau.jpg);
+  cursor: pointer;
+}
+
 @media screen and (max-width: 760px) {
   .profile {
     flex-direction: column;
