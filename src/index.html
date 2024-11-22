@@ -125,6 +125,24 @@
       </div>
     </div>
 
+<!--Update Profile Picture-->
+
+<div class="modal" id="profile-picture-modal">
+  <div class="modal__container modal__profile_picture">
+    <button class="modal__button-close" id="edit-picture-close"></button>
+    <h2 class="modal__profile_message">Change Profile Picture</h3>
+      <input
+            type="url"
+            name="profile__url"
+            class="modal__input_profile"
+            placeholder="Image Link"
+            id="profile-input-url"
+            required
+          />
+      <button class="modal__button-submit" id="confirm-picture-submit">Save</button>
+  </div>
+</div>
+
     <template id="card-template">
       <li class="card">
         <img src="" alt="" class="card__image" />

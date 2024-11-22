@@ -87,6 +87,8 @@
   width: 358px;
   margin: 0 36px 36px 36px;
   color: #fff;
+  border: none;
+  cursor: pointer;
 }
 
 .modal__form {
@@ -131,6 +133,14 @@
   display: flex;
 }
 
+.modal__input_profile {
+  width: 358px;
+  height: 27px;
+  border: none;
+  border-bottom: 1px solid rgba(0, 0, 0, 20%);
+  margin: 0 36px 48px 36px;
+}
+
 .modal__error-title {
   font-size: 12px;
   color: #ff0000;
@@ -149,6 +159,17 @@
   color: #000;
   margin: 34px 36px 36px;
   padding: 0;
+}
+
+.modal__profile_message {
+  margin: 34px 64px 54px 36px;
+  color: #000;
+}
+
+.modal__profile_picture {
+  padding: 0;
+  width: 430px;
+  height: 272px;
 }
 
 .modal__button-save:enabled {

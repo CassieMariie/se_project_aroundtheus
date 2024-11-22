@@ -51,6 +51,9 @@ document.addEventListener("DOMContentLoaded", () => {
   modalWithConfirm.setEventListeners();
 });
 
+const editProfilePic = new PopupWithConfirmation("#profile-picture-modal");
+editProfilePic.setEventListeners();
+
 //Section JS//
 const sectionCards = new Section(
   {
@@ -61,7 +64,6 @@ const sectionCards = new Section(
   },
   ".cards__images"
 );
-//sectionCards.renderItems(constants.initialCards); delete later\
 
 api.getInitialCards().then((cards) => {
   sectionCards.renderItems(constants.initialCards);
@@ -84,6 +86,9 @@ function renderCard(cardData) {
 }
 
 function handleAddCardFormSubmit(inputData) {
+  api.getInitialCards().then((card) => {
+    sectionCards.renderItems(card);
+  });
   const { card__title, card__url } = inputData;
   renderCard({ name: card__title, link: card__url });
   addCardFormValidator.disableSubmitButton();
@@ -103,24 +108,28 @@ function handleCardImageClick(name, link) {
   popupImage.open(name, link);
 }
 
-function handleDeleteCard(cardElement, cardId) {
-  console.log("Delete handler triggered");
+function handleDeleteCard(card, cardId) {
   modalWithConfirm.setSubmitFunction(() => {
     api
       .deleteCard(cardId)
       .then(() => {
-        cardElement.remove();
+        card._handleCardDelete();
+        modalWithConfirm.close();
       })
       .catch((err) => console.error(err));
   });
   modalWithConfirm.open();
 }
 
-/*return api
-  .updateAvatar(url)
-  .then((updatedUrl) => userInfo.setAvatar(updatedUrl))
-  .catch((err) => console.error(err))
-  .finally(() => editProfileModal.close());*/
+function handleEditPrfilePic() {
+  editProfilePic.setSubmitFunction(() => {
+    api
+      .updateAvatar(url)
+      .then((updatedUrl) => userInfo.setAvatar(updatedUrl))
+      .catch((err) => console.error(err))
+      .finally(() => editProfileModal.close());
+  });
+}
 
 //Event Listeners//
 constants.profileEditButton.addEventListener("click", () => {
@@ -132,6 +141,10 @@ constants.profileEditButton.addEventListener("click", () => {
 
 constants.addNewCardButton.addEventListener("click", () => {
   newCardPopup.open();
+});
+
+constants.profileImage.addEventListener("click", () => {
+  editProfilePic.open();
 });
 
 //EnableValidation

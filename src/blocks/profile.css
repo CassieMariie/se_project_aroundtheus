@@ -73,7 +73,7 @@
 }
 
 .profile__image:hover {
-  background: rgba(0, 0, 0, 50%) url(../images/jacques-cousteau.jpg);
+  opacity: 60%;
   cursor: pointer;
 }
 
