@@ -45,6 +45,12 @@ const profileEditPopup = new PopupWithForm(
 );
 profileEditPopup.setEventListeners();
 
+const profilePicPopup = new PopupWithForm(
+  { popupSelector: "#profile-picture-modal" },
+  handleEditPrfilePic
+);
+profilePicPopup.setEventListeners();
+
 //PopupWithConfirmation
 const modalWithConfirm = new PopupWithConfirmation("#delete-image-modal");
 document.addEventListener("DOMContentLoaded", () => {
@@ -52,7 +58,9 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 const editProfilePic = new PopupWithConfirmation("#profile-picture-modal");
-editProfilePic.setEventListeners();
+document.addEventListener("DOMContentLoaded", () => {
+  editProfilePic.setEventListeners();
+});
 
 //Section JS//
 const sectionCards = new Section(
@@ -121,11 +129,11 @@ function handleDeleteCard(card, cardId) {
   modalWithConfirm.open();
 }
 
-function handleEditPrfilePic() {
+function handleEditPrfilePic(url) {
   editProfilePic.setSubmitFunction(() => {
     api
       .updateAvatar(url)
-      .then((updatedUrl) => userInfo.setAvatar(updatedUrl))
+      .then((user) => userInfo.setAvatar(user.avatar))
       .catch((err) => console.error(err))
       .finally(() => editProfileModal.close());
   });
