@@ -19,6 +19,7 @@ const api = new Api({
   baseUrl: "https://around-api.en.tripleten-services.com/v1",
   headers: {
     authorization: "1abc7623-f84f-4d03-9121-da2d9a4553b4",
+    "Content-type": "application/json",
   },
 });
 
@@ -60,17 +61,23 @@ document.addEventListener("DOMContentLoaded", () => {
 //Section JS//
 const sectionCards = new Section(
   {
-    items: constants.initialCards,
-    renderer: (cardData) => {
-      renderCard(cardData);
+    //items: constants.initialCards,
+    renderer: (cards) => {
+      renderCard(api.getInitialCards(cards));
     },
   },
   ".cards__images"
 );
 
-api.getInitialCards().then((cards) => {
-  sectionCards.renderItems(constants.initialCards);
-});
+api
+  .getInitialCards()
+  .then((cards) => {
+    console.log(cards);
+    sectionCards.renderItems(cards);
+  })
+  .catch((err) => {
+    console.error(err);
+  });
 
 //Functions//
 function createCard(cardId) {
