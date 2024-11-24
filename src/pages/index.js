@@ -57,11 +57,6 @@ document.addEventListener("DOMContentLoaded", () => {
   modalWithConfirm.setEventListeners();
 });
 
-const editProfilePic = new PopupWithConfirmation("#profile-picture-modal");
-document.addEventListener("DOMContentLoaded", () => {
-  editProfilePic.setEventListeners();
-});
-
 //Section JS//
 const sectionCards = new Section(
   {
@@ -130,13 +125,14 @@ function handleDeleteCard(card, cardId) {
 }
 
 function handleEditPrfilePic(url) {
-  editProfilePic.setSubmitFunction(() => {
+  profilePicPopup.setSubmitFunction(() => {
     api
       .updateAvatar(url)
       .then((user) => userInfo.setAvatar(user.avatar))
       .catch((err) => console.error(err))
       .finally(() => editProfileModal.close());
   });
+  profilePicPopup.open();
 }
 
 //Event Listeners//
@@ -152,8 +148,16 @@ constants.addNewCardButton.addEventListener("click", () => {
 });
 
 constants.profileImage.addEventListener("click", () => {
-  editProfilePic.open();
+  profilePicPopup.open();
 });
+
+constants.deleteImageClose.addEventListener("click", () => {
+  modalWithConfirm.close();
+});
+
+/*constants.editProfilePicClose.addEventListener("click", () => {
+  editProfilePic.close();
+});*/
 
 //EnableValidation
 const editProfileFormValidator = new FormValidator(

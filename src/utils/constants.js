@@ -74,3 +74,6 @@ export const newCardModalClose =
   addNewCardModal.querySelector("#card-modal-close");
 export const openImageClose = document.querySelector("#open-image-close");
 export const deleteImageClose = document.querySelector("#delete-image-close");
+export const editProfilePicClose = document.querySelector(
+  "#edit-picture-close"
+);
