@@ -124,14 +124,12 @@ function handleDeleteCard(card, cardId) {
   modalWithConfirm.open();
 }
 
-function handleEditPrfilePic(url) {
-  profilePicPopup.setSubmitFunction(() => {
-    api
-      .updateAvatar(url)
-      .then((user) => userInfo.setAvatar(user.avatar))
-      .catch((err) => console.error(err))
-      .finally(() => editProfileModal.close());
-  });
+function handleEditPrfilePic(inputValues) {
+  api
+    .updateAvatar(inputValues)
+    .then((user) => userInfo.setAvatar(user.avatar))
+    .catch((err) => console.error(err))
+    .finally(() => profilePicPopup.close());
   profilePicPopup.open();
 }
 
