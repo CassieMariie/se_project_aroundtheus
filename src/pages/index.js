@@ -80,9 +80,10 @@ api
   });
 
 //Functions//
-function createCard(cardId) {
+function createCard(cards) {
+  console.log(createCard);
   const card = new Card(
-    cardId,
+    cards,
     "#card-template",
     handleCardImageClick,
     handleDeleteCard
@@ -95,7 +96,7 @@ function renderCard(cardData) {
   sectionCards.addItem(cardElement);
 }
 
-function handleAddCardFormSubmit(inputData) {
+/*function handleAddCardFormSubmit(inputData) {
   api.getInitialCards().then((card) => {
     sectionCards.renderItems(card);
   });
@@ -104,6 +105,23 @@ function handleAddCardFormSubmit(inputData) {
   addCardFormValidator.disableSubmitButton();
   newCardPopup.close();
   addNewCardForm.reset();
+} delete later*/
+
+function handleAddCardFormSubmit(inputData) {
+  const { card_title, card_url } = inputData;
+
+  api
+    .createCard({ name: card_title, link: card_url })
+    .then((newCard) => {
+      renderCard(newCard);
+      console.log(newCard);
+      addCardFormValidator.disableSubmitButton();
+      newCardPopup.close();
+      addNewCardForm.reset();
+    })
+    .catch((err) => {
+      console.error(err);
+    });
 }
 
 function handleEditSubmit(inputData) {
