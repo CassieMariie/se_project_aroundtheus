@@ -61,9 +61,9 @@ document.addEventListener("DOMContentLoaded", () => {
 //Section JS//
 const sectionCards = new Section(
   {
-    //items: constants.initialCards,
+    items: [],
     renderer: (cards) => {
-      renderCard(api.getInitialCards(cards));
+      renderCard(cards);
     },
   },
   ".cards__images"
@@ -96,22 +96,11 @@ function renderCard(cardData) {
   sectionCards.addItem(cardElement);
 }
 
-/*function handleAddCardFormSubmit(inputData) {
-  api.getInitialCards().then((card) => {
-    sectionCards.renderItems(card);
-  });
-  const { card__title, card__url } = inputData;
-  renderCard({ name: card__title, link: card__url });
-  addCardFormValidator.disableSubmitButton();
-  newCardPopup.close();
-  addNewCardForm.reset();
-} delete later*/
-
 function handleAddCardFormSubmit(inputData) {
-  const { card_title, card_url } = inputData;
+  const { card__title, card__url } = inputData;
 
   api
-    .createCard({ name: card_title, link: card_url })
+    .createCard({ name: card__title, link: card__url })
     .then((newCard) => {
       renderCard(newCard);
       console.log(newCard);
@@ -177,10 +166,6 @@ constants.profileImage.addEventListener("click", () => {
 constants.deleteImageClose.addEventListener("click", () => {
   modalWithConfirm.close();
 });
-
-/*constants.editProfilePicClose.addEventListener("click", () => {
-  editProfilePic.close();
-});*/
 
 //EnableValidation
 const editProfileFormValidator = new FormValidator(
