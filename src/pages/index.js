@@ -80,7 +80,7 @@ api
     console.error(err);
   });
 
-const likeButton = new Card(".card__like-button");
+//const likeButton = new Card(".card__like-button");
 
 //Functions//
 function createCard(cards) {
@@ -89,7 +89,8 @@ function createCard(cards) {
     cards,
     "#card-template",
     handleCardImageClick,
-    handleDeleteCard
+    handleDeleteCard,
+    handleLikeCard
   );
   return card.generateCard();
 }
@@ -110,11 +111,6 @@ function handleAddCardFormSubmit(inputData) {
       addCardFormValidator.disableSubmitButton();
       newCardPopup.close();
       addNewCardForm.reset();
-      if (isLiked) {
-        button.classList.add("card__like-button_active");
-      }
-
-      likeButton.addEventListener("click", () => handleLikeCard(evt, data._id));
     })
     .catch((err) => {
       console.error(err);
@@ -146,23 +142,21 @@ function handleDeleteCard(card, cardId) {
   modalWithConfirm.open();
 }
 
-function handleEditPrfilePic(inputValues) {
+function handleEditPrfilePic(url) {
   api
-    .updateAvatar(inputValues)
-    .then((user) => userInfo.setAvatar(user.avatar))
+    .updateAvatar(url)
+    .then((users) => userInfo.setAvatar(users.avatar))
     .catch((err) => console.error(err))
     .finally(() => profilePicPopup.close());
   profilePicPopup.open();
 }
 
-function handleLikeCard(evt, id) {
-  const isLiked = likeButton.classList.contains("card__like-button_active");
-  const likeButton = evt.target;
-  api
-    .handleLikeCard(id, isLiked)
+function handleLikeCard(card) {
+  api.handleLikeCard(card.getId(), card.isLiked());
+  this._handleCardLike(this)
     .then((res) => {
-      likeButton.classList.toggle(".card__like-button_active");
-      saveLikeState(id, !isLiked);
+      handleLikeCard.classList.toggle(".card__like-button_active");
+      card.setIsLiked(res.isLiked);
     })
     .catch((err) => console.error(err));
 }
@@ -185,7 +179,6 @@ constants.profileImage.addEventListener("click", () => {
 
 constants.deleteImageClose.addEventListener("click", () => {
   modalWithConfirm.close();
-  closeModal(modalWithConfirm);
 });
 
 //EnableValidation

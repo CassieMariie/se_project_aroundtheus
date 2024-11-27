@@ -61,4 +61,25 @@ export default class Card {
   _handleCardDelete() {
     this._element.remove();
   }
+
+  getId() {
+    return this._id;
+  }
+
+  isLiked() {
+    return this._isLiked;
+  }
+
+  renderLike() {
+    if (this._isLiked) {
+      this._handleCardLike;
+    } else {
+      this._handleCardLike.remove();
+    }
+  }
+
+  setIsLiked(isLiked) {
+    this._isLiked = isLiked;
+    this.renderLike();
+  }
 }
