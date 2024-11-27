@@ -9,6 +9,7 @@ import UserInfo from "../components/UserInfo.js";
 import Api from "../components/Api.js";
 import PopupWithConfirmation from "../components/PopupWithConfirmation.js";
 import { data } from "autoprefixer";
+import Popup from "../components/Popup.js";
 
 //Validator JS//
 const profileEditForm = document.querySelector("#profile-modal-form");
@@ -79,6 +80,8 @@ api
     console.error(err);
   });
 
+const likeButton = new Card(".card__like-button");
+
 //Functions//
 function createCard(cards) {
   console.log(createCard);
@@ -107,6 +110,11 @@ function handleAddCardFormSubmit(inputData) {
       addCardFormValidator.disableSubmitButton();
       newCardPopup.close();
       addNewCardForm.reset();
+      if (isLiked) {
+        button.classList.add("card__like-button_active");
+      }
+
+      likeButton.addEventListener("click", () => handleLikeCard(evt, data._id));
     })
     .catch((err) => {
       console.error(err);
@@ -147,6 +155,18 @@ function handleEditPrfilePic(inputValues) {
   profilePicPopup.open();
 }
 
+function handleLikeCard(evt, id) {
+  const isLiked = likeButton.classList.contains("card__like-button_active");
+  const likeButton = evt.target;
+  api
+    .handleLikeCard(id, isLiked)
+    .then((res) => {
+      likeButton.classList.toggle(".card__like-button_active");
+      saveLikeState(id, !isLiked);
+    })
+    .catch((err) => console.error(err));
+}
+
 //Event Listeners//
 constants.profileEditButton.addEventListener("click", () => {
   const { title, description } = userInfo.getUserInfo();
@@ -165,6 +185,7 @@ constants.profileImage.addEventListener("click", () => {
 
 constants.deleteImageClose.addEventListener("click", () => {
   modalWithConfirm.close();
+  closeModal(modalWithConfirm);
 });
 
 //EnableValidation
