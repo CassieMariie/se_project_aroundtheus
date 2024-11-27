@@ -152,10 +152,9 @@ function handleEditPrfilePic(url) {
 }
 
 function handleLikeCard(card) {
-  api.handleLikeCard(card.getId(), card.isLiked());
-  this._handleCardLike(this)
+  api
+    .likeCard(card.getId(), card.isLiked())
     .then((res) => {
-      handleLikeCard.classList.toggle(".card__like-button_active");
       card.setIsLiked(res.isLiked);
     })
     .catch((err) => console.error(err));

@@ -1,5 +1,11 @@
 export default class Card {
-  constructor(data, cardSelector, handleCardImageClick, handleDeleteCard) {
+  constructor(
+    data,
+    cardSelector,
+    handleCardImageClick,
+    handleDeleteCard,
+    handleLikeCard
+  ) {
     this._name = data.name;
     this._link = data.link;
     this._id = data._id;
@@ -7,6 +13,7 @@ export default class Card {
     this._cardSelector = cardSelector;
     this._handleCardImageClick = handleCardImageClick;
     this._handleDeleteCard = handleDeleteCard;
+    this._handleLikeCard = handleLikeCard;
   }
 
   _getTemplate() {
@@ -21,6 +28,7 @@ export default class Card {
   generateCard() {
     this._element = this._getTemplate();
     this._setEventListeners();
+    this.renderLike();
 
     const cardImageElement = this._element.querySelector(".card__image");
     const cardTitleElement = this._element.querySelector(".card__title");
@@ -33,17 +41,16 @@ export default class Card {
   }
 
   _setEventListeners() {
+    this._likeButton = this._element.querySelector(".card__like-button");
     this._element
       .querySelector(".card__image")
       .addEventListener("click", () => {
         this._handleCardImageClick(this._name, this._link);
       });
 
-    this._element
-      .querySelector(".card__like-button")
-      .addEventListener("click", () => {
-        this._handleCardLike();
-      });
+    this._likeButton.addEventListener("click", () => {
+      this._handleLikeCard(this);
+    });
 
     this._element
       .querySelector(".card__delete-button")
@@ -52,11 +59,11 @@ export default class Card {
       });
   }
 
-  _handleCardLike() {
+  /* _handleCardLike() {
     this._element
       .querySelector(".card__like-button")
       .classList.toggle("card__like-button_active");
-  }
+  }*/
 
   _handleCardDelete() {
     this._element.remove();
@@ -72,9 +79,13 @@ export default class Card {
 
   renderLike() {
     if (this._isLiked) {
-      this._handleCardLike;
+      this._element
+        .querySelector(".card__like-button")
+        .classList.add("card__like-button_active");
     } else {
-      this._handleCardLike.remove();
+      this._element
+        .querySelector(".card__like-button")
+        .classList.remove("card__like-button_active");
     }
   }
 
