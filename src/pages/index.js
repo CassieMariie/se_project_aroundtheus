@@ -80,8 +80,6 @@ api
     console.error(err);
   });
 
-//const likeButton = new Card(".card__like-button");
-
 //Functions//
 function createCard(cards) {
   console.log(createCard);
