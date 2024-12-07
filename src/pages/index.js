@@ -14,6 +14,7 @@ import Popup from "../components/Popup.js";
 //Validator JS//
 const profileEditForm = document.querySelector("#profile-modal-form");
 const addNewCardForm = document.querySelector("#card-modal-form");
+const updateAvatarImg = document.querySelector("#profile-picture-modal");
 
 //Api JS//
 const api = new Api({
@@ -115,11 +116,22 @@ function handleAddCardFormSubmit(inputData) {
     });
 }
 
-function handleEditSubmit(inputData) {
-  userInfo.setUserInfo({
+function handleEditSubmit(name, description) {
+  api.updateProfile({ name, description }).then(() => {
+    userInfo
+      .setUserInfo({
+        name: profile__name,
+        description: profile__description,
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  });
+  /* userInfo.setUserInfo({
     title: inputData.profile__name,
     description: inputData.profile__description,
-  });
+  });*/
+
   profileEditPopup.close();
 }
 
@@ -142,8 +154,8 @@ function handleDeleteCard(card, cardId) {
 
 function handleEditPrfilePic(url) {
   api
-    .updateAvatar(url)
-    .then((users) => userInfo.setAvatar(users.avatar))
+    .updateAvatar(url.profile__url)
+    .then((users) => userInfo.getUserInfo(users.avatar))
     .catch((err) => console.error(err))
     .finally(() => profilePicPopup.close());
   profilePicPopup.open();
@@ -178,6 +190,10 @@ constants.deleteImageClose.addEventListener("click", () => {
   modalWithConfirm.close();
 });
 
+constants.deleteImageOverlay.addEventListener("click", () => {
+  modalWithConfirm.close();
+});
+
 //EnableValidation
 const editProfileFormValidator = new FormValidator(
   constants.settings,
@@ -187,5 +203,10 @@ const addCardFormValidator = new FormValidator(
   constants.settings,
   addNewCardForm
 );
+const updateAvatarFormValidator = new FormValidator(
+  constants.settings,
+  updateAvatarImg
+);
 editProfileFormValidator.enableValidation();
 addCardFormValidator.enableValidation();
+updateAvatarFormValidator.enableValidation();

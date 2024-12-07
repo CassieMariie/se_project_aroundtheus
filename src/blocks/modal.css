@@ -214,14 +214,48 @@
     width: 282px;
     max-height: 322px;
   }
+
+  .modal__profile_picture {
+    padding: 0;
+    width: 282px;
+    height: 272px;
+  }
+
+  .modal__delete_card {
+    padding: 25px 22px 0;
+    width: 282px;
+    max-height: 155px;
+  }
+  .modal__message {
+    margin: 10px 36px 30px 0;
+  }
+  .modal__profile_message {
+    margin: 25px 35px 54px 10px;
+  }
   .modal__form {
     margin-top: 75px;
+  }
+  .modal__profile_form {
+    margin: 0;
+  }
+  .modal__input_profile {
+    margin: 0 30px 20px 15px;
+    width: 250px;
+    padding: 0;
   }
   .modal__button-close {
     width: 26px;
     height: 26px;
     left: calc(100% - 25px);
     margin-bottom: 14px;
+  }
+  .modal__button-delete {
+    width: 260px;
+    margin: 10px 0px 15px 0;
+  }
+  .modal__button-profile {
+    width: 260px;
+    margin: 10px 10px 15px 10px;
   }
   .modal__heading {
     font-size: 18px;

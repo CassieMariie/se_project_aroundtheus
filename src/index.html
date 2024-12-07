@@ -137,7 +137,10 @@
       <div class="modal__container modal__delete_card">
         <button class="modal__button-close" id="delete-image-close"></button>
         <h2 class="modal__message">Are You Sure?</h2>
-        <button class="modal__button-submit" id="delete-image-submit">
+        <button
+          class="modal__button-submit modal__button-delete"
+          id="delete-image-submit"
+        >
           Yes
         </button>
       </div>
@@ -149,16 +152,19 @@
       <div class="modal__container modal__profile_picture">
         <button class="modal__button-close" id="edit-picture-close"></button>
         <h2 class="modal__profile_message">Change Profile Picture</h2>
-        <form class="modal__form">
+        <form class="modal__form modal__profile_form">
           <input
             type="url"
             name="profile__url"
-            class="modal__input_profile"
+            class="modal__input"
             placeholder="Image Link"
             id="profile-input-url"
             required
           />
-          <button class="modal__button-submit" id="confirm-picture-submit">
+          <button
+            class="modal__button-submit modal__button-profile"
+            id="confirm-picture-submit"
+          >
             Save
           </button>
         </form>

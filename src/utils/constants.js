@@ -78,3 +78,4 @@ export const deleteImageClose = document.querySelector("#delete-image-close");
 export const editProfilePicClose = document.querySelector(
   "#edit-picture-close"
 );
+export const deleteImageOverlay = document.querySelector("#delete-image-modal");
