@@ -15,6 +15,7 @@ import Popup from "../components/Popup.js";
 const profileEditForm = document.querySelector("#profile-modal-form");
 const addNewCardForm = document.querySelector("#card-modal-form");
 const updateAvatarImg = document.querySelector("#profile-picture-modal");
+const updatePrfileNameDesc = document.querySelector("#profile-edit-modal");
 
 //Api JS//
 const api = new Api({
@@ -116,22 +117,21 @@ function handleAddCardFormSubmit(inputData) {
     });
 }
 
-function handleEditSubmit(name, description) {
-  api.updateProfile({ name, description }).then(() => {
-    userInfo
-      .setUserInfo({
-        name: profile__name,
-        description: profile__description,
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-  });
-  /* userInfo.setUserInfo({
-    title: inputData.profile__name,
-    description: inputData.profile__description,
-  });*/
-
+function handleEditSubmit(inputValues) {
+  const { profile__name, profile__description } = inputValues;
+  console.log({ profile__name, profile__description });
+  api
+    .updateProfile({ name: profile__name, description: profile__description })
+    .then(() => {
+      userInfo
+        .setUserInfo({
+          name: inputValues.profile__name,
+          description: inputValues.profile__description,
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    });
   profileEditPopup.close();
 }
 
@@ -207,6 +207,12 @@ const updateAvatarFormValidator = new FormValidator(
   constants.settings,
   updateAvatarImg
 );
+
+const updateProfileNameValidator = new FormValidator(
+  constants.settings,
+  updatePrfileNameDesc
+);
 editProfileFormValidator.enableValidation();
 addCardFormValidator.enableValidation();
 updateAvatarFormValidator.enableValidation();
+updateProfileNameValidator.enableValidation();

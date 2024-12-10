@@ -134,25 +134,20 @@
     <!--Delete Image Modal-->
 
     <div class="modal" id="delete-image-modal">
-      <div class="modal__container modal__delete_card">
+      <div class="modal__container">
         <button class="modal__button-close" id="delete-image-close"></button>
-        <h2 class="modal__message">Are You Sure?</h2>
-        <button
-          class="modal__button-submit modal__button-delete"
-          id="delete-image-submit"
-        >
-          Yes
-        </button>
+        <h2 class="modal__heading">Are You Sure?</h2>
+        <button class="modal__button-save" id="delete-image-submit">Yes</button>
       </div>
     </div>
 
     <!--Update Profile Picture-->
 
     <div class="modal" id="profile-picture-modal">
-      <div class="modal__container modal__profile_picture">
+      <div class="modal__container">
         <button class="modal__button-close" id="edit-picture-close"></button>
-        <h2 class="modal__profile_message">Change Profile Picture</h2>
-        <form class="modal__form modal__profile_form">
+        <h2 class="modal__heading">Change Profile Picture</h2>
+        <form class="modal__form">
           <input
             type="url"
             name="profile__url"
@@ -161,10 +156,8 @@
             id="profile-input-url"
             required
           />
-          <button
-            class="modal__button-submit modal__button-profile"
-            id="confirm-picture-submit"
-          >
+          <span class="modal__error-title" id="profile-input-url-error"></span>
+          <button class="modal__button-save" id="confirm-picture-submit">
             Save
           </button>
         </form>
