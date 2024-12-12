@@ -119,7 +119,6 @@ function handleAddCardFormSubmit(inputData) {
 
 function handleEditSubmit(inputValues) {
   const { profile__name, profile__description } = inputValues;
-  console.log({ profile__name, profile__description });
   api
     .updateProfile({ name: profile__name, description: profile__description })
     .then(() => {
