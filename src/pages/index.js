@@ -27,10 +27,13 @@ const api = new Api({
 });
 
 //UserInfo JS//
-const userInfo = new UserInfo({
-  profileSelector: ".profile__title",
-  jobSelector: ".profile__description",
-});
+const userInfo = new UserInfo(
+  {
+    profileSelector: ".profile__title",
+    jobSelector: ".profile__description",
+  },
+  ".profile__image"
+);
 
 //PopupWithImage JS//
 const popupImage = new PopupWithImage({ popupSelector: "#open-image-modal" });
@@ -102,7 +105,7 @@ function renderCard(cardData) {
 
 function handleAddCardFormSubmit(inputData) {
   const { card__title, card__url } = inputData;
-
+  newCardPopup.setLoading(true);
   api
     .createCard({ name: card__title, link: card__url })
     .then((newCard) => {
@@ -114,7 +117,8 @@ function handleAddCardFormSubmit(inputData) {
     })
     .catch((err) => {
       console.error(err);
-    });
+    })
+    .finally(() => newCardPopup.setLoading(false));
 }
 
 function handleEditSubmit(inputValues) {
@@ -122,14 +126,13 @@ function handleEditSubmit(inputValues) {
   api
     .updateProfile({ name: profile__name, description: profile__description })
     .then(() => {
-      userInfo
-        .setUserInfo({
-          name: inputValues.profile__name,
-          description: inputValues.profile__description,
-        })
-        .catch((err) => {
-          console.error(err);
-        });
+      userInfo.setUserInfo({
+        name: inputValues.profile__name,
+        description: inputValues.profile__description,
+      });
+    })
+    .catch((err) => {
+      console.error(err);
     });
   profileEditPopup.close();
 }
@@ -146,18 +149,25 @@ function handleDeleteCard(card, cardId) {
         card._handleCardDelete();
         modalWithConfirm.close();
       })
-      .catch((err) => console.error(err));
+      .catch((err) => {
+        console.error(err);
+      });
   });
   modalWithConfirm.open();
 }
 
 function handleEditPrfilePic(url) {
+  const { profile__url } = url;
   api
-    .updateAvatar(url.profile__url)
-    .then((users) => userInfo.getUserInfo(users.avatar))
+    .updateAvatar({ avatar: profile__url })
+    .then(
+      (users) => userInfo.getUserInfo(users.avatar),
+      userInfo.setUserAvatar(url)
+    )
     .catch((err) => console.error(err))
     .finally(() => profilePicPopup.close());
   profilePicPopup.open();
+  console.log(url);
 }
 
 function handleLikeCard(card) {
