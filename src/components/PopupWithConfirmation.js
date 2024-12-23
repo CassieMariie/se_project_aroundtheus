@@ -9,7 +9,7 @@ export default class PopupWithConfirmation extends Popup {
   }
   setEventListeners() {
     const confirmButton = this._popupElement.querySelector(
-      ".modal__button-submit"
+      ".modal__button-save"
     );
     confirmButton.addEventListener("click", (evt) => {
       evt.preventDefault();
