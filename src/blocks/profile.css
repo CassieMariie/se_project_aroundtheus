@@ -73,6 +73,7 @@
 }
 
 .profile__image:hover {
+  background: url(../images/edit-profile.svg) center no-repeat;
   opacity: 60%;
   cursor: pointer;
 }

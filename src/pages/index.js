@@ -165,9 +165,8 @@ function handleEditPrfilePic(url) {
     .updateAvatar(profile__url)
     .then((users) => userInfo.setUserAvatar(users.avatar))
     .catch((err) => console.error(err))
-    .finally(() => profilePicPopup.close())
-    .finally(() => profileEditPopup.setLoading(false));
-  profilePicPopup.open();
+    .finally(() => profilePicPopup.setLoading(false));
+  profilePicPopup.close();
 }
 
 function handleLikeCard(card) {
