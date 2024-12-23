@@ -123,6 +123,7 @@ function handleAddCardFormSubmit(inputData) {
 
 function handleEditSubmit(inputValues) {
   const { profile__name, profile__description } = inputValues;
+  profileEditPopup.setLoading(true);
   api
     .updateProfile({ name: profile__name, description: profile__description })
     .then(() => {
@@ -133,7 +134,8 @@ function handleEditSubmit(inputValues) {
     })
     .catch((err) => {
       console.error(err);
-    });
+    })
+    .finally(() => profileEditPopup.setLoading(false));
   profileEditPopup.close();
 }
 
@@ -158,16 +160,14 @@ function handleDeleteCard(card, cardId) {
 
 function handleEditPrfilePic(url) {
   const { profile__url } = url;
+  profilePicPopup.setLoading(true);
   api
-    .updateAvatar({ avatar: profile__url })
-    .then(
-      (users) => userInfo.getUserInfo(users.avatar),
-      userInfo.setUserAvatar(url)
-    )
+    .updateAvatar(profile__url)
+    .then((users) => userInfo.setUserAvatar(users.avatar))
     .catch((err) => console.error(err))
-    .finally(() => profilePicPopup.close());
+    .finally(() => profilePicPopup.close())
+    .finally(() => profileEditPopup.setLoading(false));
   profilePicPopup.open();
-  console.log(url);
 }
 
 function handleLikeCard(card) {
