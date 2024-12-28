@@ -85,6 +85,19 @@ api
     console.error(err);
   });
 
+api
+  .getUserInfo()
+  .then((user) => {
+    userInfo.setUserInfo({
+      name: user.name,
+      description: user.about,
+    }),
+      userInfo.setUserAvatar(user.avatar);
+  })
+  .catch((err) => {
+    console.error(err);
+  });
+
 //Functions//
 function createCard(cards) {
   console.log(createCard);
@@ -190,7 +203,7 @@ constants.addNewCardButton.addEventListener("click", () => {
   newCardPopup.open();
 });
 
-constants.profileImage.addEventListener("click", () => {
+constants.profileImageBtn.addEventListener("click", () => {
   profilePicPopup.open();
 });
 

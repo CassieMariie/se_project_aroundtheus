@@ -45,6 +45,7 @@ export const profileInputDescription = document.querySelector(
   "#profile-input-description"
 );
 export const profileImage = document.querySelector(".profile__image");
+export const profileImageBtn = document.querySelector(".profile__edit-btn");
 export const profilePicUrl = document.querySelector("#profile-input-url");
 
 //Card Elements//

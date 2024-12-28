@@ -59,12 +59,6 @@ export default class Card {
       });
   }
 
-  /* _handleCardLike() {
-    this._element
-      .querySelector(".card__like-button")
-      .classList.toggle("card__like-button_active");
-  }*/
-
   _handleCardDelete() {
     this._element.remove();
   }
