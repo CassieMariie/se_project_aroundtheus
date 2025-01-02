@@ -140,16 +140,18 @@ function handleEditSubmit(inputValues) {
   api
     .updateProfile({ name: profile__name, description: profile__description })
     .then(() => {
-      userInfo.setUserInfo({
-        name: inputValues.profile__name,
-        description: inputValues.profile__description,
-      });
+      userInfo.setUserInfo(
+        {
+          name: inputValues.profile__name,
+          description: inputValues.profile__description,
+        },
+        profileEditPopup.close()
+      );
     })
     .catch((err) => {
       console.error(err);
     })
     .finally(() => profileEditPopup.setLoading(false));
-  profileEditPopup.close();
 }
 
 function handleCardImageClick(name, link) {
@@ -176,10 +178,11 @@ function handleEditPrfilePic(url) {
   profilePicPopup.setLoading(true);
   api
     .updateAvatar(profile__url)
-    .then((users) => userInfo.setUserAvatar(users.avatar))
+    .then((users) => {
+      userInfo.setUserAvatar(users.avatar), profilePicPopup.close();
+    })
     .catch((err) => console.error(err))
     .finally(() => profilePicPopup.setLoading(false));
-  profilePicPopup.close();
 }
 
 function handleLikeCard(card) {
@@ -207,14 +210,6 @@ constants.profileImageBtn.addEventListener("click", () => {
   profilePicPopup.open();
 });
 
-constants.deleteImageClose.addEventListener("click", () => {
-  modalWithConfirm.close();
-});
-
-constants.deleteImageOverlay.addEventListener("click", () => {
-  modalWithConfirm.close();
-});
-
 //EnableValidation
 const editProfileFormValidator = new FormValidator(
   constants.settings,
@@ -229,11 +224,6 @@ const updateAvatarFormValidator = new FormValidator(
   updateAvatarImg
 );
 
-const updateProfileNameValidator = new FormValidator(
-  constants.settings,
-  updatePrfileNameDesc
-);
 editProfileFormValidator.enableValidation();
 addCardFormValidator.enableValidation();
 updateAvatarFormValidator.enableValidation();
-updateProfileNameValidator.enableValidation();

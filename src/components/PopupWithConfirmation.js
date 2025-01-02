@@ -1,4 +1,4 @@
-import Popup from "./Popup";
+import Popup from "./Popup.js";
 
 export default class PopupWithConfirmation extends Popup {
   constructor(popupSelector) {
@@ -8,6 +8,7 @@ export default class PopupWithConfirmation extends Popup {
     this._submitFunction = submitFnc;
   }
   setEventListeners() {
+    super.setEventListeners();
     const confirmButton = this._popupElement.querySelector(
       ".modal__button-save"
     );

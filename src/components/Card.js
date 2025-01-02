@@ -73,13 +73,9 @@ export default class Card {
 
   renderLike() {
     if (this._isLiked) {
-      this._element
-        .querySelector(".card__like-button")
-        .classList.add("card__like-button_active");
+      this._likeButton.classList.add("card__like-button_active");
     } else {
-      this._element
-        .querySelector(".card__like-button")
-        .classList.remove("card__like-button_active");
+      this._likeButton.classList.remove("card__like-button_active");
     }
   }
 
