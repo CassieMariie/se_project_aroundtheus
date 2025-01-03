@@ -9,24 +9,31 @@ import UserInfo from "../components/UserInfo.js";
 import Api from "../components/Api.js";
 import PopupWithConfirmation from "../components/PopupWithConfirmation.js";
 import { data } from "autoprefixer";
+import Popup from "../components/Popup.js";
 
 //Validator JS//
 const profileEditForm = document.querySelector("#profile-modal-form");
 const addNewCardForm = document.querySelector("#card-modal-form");
+const updateAvatarImg = document.querySelector("#profile-picture-modal");
+const updatePrfileNameDesc = document.querySelector("#profile-edit-modal");
 
 //Api JS//
 const api = new Api({
   baseUrl: "https://around-api.en.tripleten-services.com/v1",
   headers: {
     authorization: "1abc7623-f84f-4d03-9121-da2d9a4553b4",
+    "Content-type": "application/json",
   },
 });
 
 //UserInfo JS//
-const userInfo = new UserInfo({
-  profileSelector: ".profile__title",
-  jobSelector: ".profile__description",
-});
+const userInfo = new UserInfo(
+  {
+    profileSelector: ".profile__title",
+    jobSelector: ".profile__description",
+  },
+  ".profile__image"
+);
 
 //PopupWithImage JS//
 const popupImage = new PopupWithImage({ popupSelector: "#open-image-modal" });
@@ -45,7 +52,11 @@ const profileEditPopup = new PopupWithForm(
 );
 profileEditPopup.setEventListeners();
 
-const card = new Card(constants.initialCards);
+const profilePicPopup = new PopupWithForm(
+  { popupSelector: "#profile-picture-modal" },
+  handleEditPrfilePic
+);
+profilePicPopup.setEventListeners();
 
 //PopupWithConfirmation
 const modalWithConfirm = new PopupWithConfirmation("#delete-image-modal");
@@ -56,22 +67,47 @@ document.addEventListener("DOMContentLoaded", () => {
 //Section JS//
 const sectionCards = new Section(
   {
-    items: constants.initialCards,
-    renderer: (cardData) => {
-      renderCard(cardData);
+    items: [],
+    renderer: (cards) => {
+      renderCard(cards);
     },
   },
   ".cards__images"
 );
-//sectionCards.renderItems(constants.initialCards); delete later\
 
-api.getInitialCards().then((cards) => {
-  sectionCards.renderItems(constants.initialCards);
-});
+api
+  .getInitialCards()
+  .then((cards) => {
+    console.log(cards);
+    sectionCards.renderItems(cards);
+  })
+  .catch((err) => {
+    console.error(err);
+  });
+
+api
+  .getUserInfo()
+  .then((user) => {
+    userInfo.setUserInfo({
+      name: user.name,
+      description: user.about,
+    }),
+      userInfo.setUserAvatar(user.avatar);
+  })
+  .catch((err) => {
+    console.error(err);
+  });
 
 //Functions//
-function createCard(cardData) {
-  const card = new Card(cardData, "#card-template", handleCardImageClick);
+function createCard(cards) {
+  console.log(createCard);
+  const card = new Card(
+    cards,
+    "#card-template",
+    handleCardImageClick,
+    handleDeleteCard,
+    handleLikeCard
+  );
   return card.generateCard();
 }
 
@@ -82,37 +118,79 @@ function renderCard(cardData) {
 
 function handleAddCardFormSubmit(inputData) {
   const { card__title, card__url } = inputData;
-  renderCard({ name: card__title, link: card__url });
-  addCardFormValidator.disableSubmitButton();
-  newCardPopup.close();
-  addNewCardForm.reset();
+  newCardPopup.setLoading(true);
+  api
+    .createCard({ name: card__title, link: card__url })
+    .then((newCard) => {
+      renderCard(newCard);
+      console.log(newCard);
+      addCardFormValidator.disableSubmitButton();
+      newCardPopup.close();
+      addNewCardForm.reset();
+    })
+    .catch((err) => {
+      console.error(err);
+    })
+    .finally(() => newCardPopup.setLoading(false));
 }
 
-function handleEditSubmit(inputData) {
-  userInfo.setUserInfo({
-    title: inputData.profile__name,
-    description: inputData.profile__description,
-  });
-  profileEditPopup.close();
+function handleEditSubmit(inputValues) {
+  const { profile__name, profile__description } = inputValues;
+  profileEditPopup.setLoading(true);
+  api
+    .updateProfile({ name: profile__name, description: profile__description })
+    .then(() => {
+      userInfo.setUserInfo({
+        name: inputValues.profile__name,
+        description: inputValues.profile__description,
+      });
+      profileEditPopup.close();
+    })
+    .catch((err) => {
+      console.error(err);
+    })
+    .finally(() => profileEditPopup.setLoading(false));
 }
 
 function handleCardImageClick(name, link) {
   popupImage.open(name, link);
 }
 
-const cardDelete = document.querySelectorAll("#delete-image-close");
-//const cardDeleteModal = document.querySelectorAll("#delete-image-modal");
-
-function handleDeleteCard(card) {
+function handleDeleteCard(card, cardId) {
   modalWithConfirm.setSubmitFunction(() => {
     api
-      .deleteCard(card)
+      .deleteCard(cardId)
       .then(() => {
-        card.remove();
+        card.handleCardDelete();
+        modalWithConfirm.close();
       })
-      .catch((err) => console.error(err));
+      .catch((err) => {
+        console.error(err);
+      });
   });
   modalWithConfirm.open();
+}
+
+function handleEditPrfilePic(url) {
+  const { profile__url } = url;
+  profilePicPopup.setLoading(true);
+  api
+    .updateAvatar(profile__url)
+    .then((users) => {
+      userInfo.setUserAvatar(users.avatar);
+      profilePicPopup.close();
+    })
+    .catch((err) => console.error(err))
+    .finally(() => profilePicPopup.setLoading(false));
+}
+
+function handleLikeCard(card) {
+  api
+    .likeCard(card.getId(), card.isLiked())
+    .then((res) => {
+      card.setIsLiked(res.isLiked);
+    })
+    .catch((err) => console.error(err));
 }
 
 //Event Listeners//
@@ -127,11 +205,8 @@ constants.addNewCardButton.addEventListener("click", () => {
   newCardPopup.open();
 });
 
-constants.cardDelete.forEach((button) => {
-  button.addEventListener("click", (event) => {
-    handleDeleteCard(event.target.closest(card));
-    console.log("Button clicked");
-  });
+constants.profileImageBtn.addEventListener("click", () => {
+  profilePicPopup.open();
 });
 
 //EnableValidation
@@ -143,5 +218,11 @@ const addCardFormValidator = new FormValidator(
   constants.settings,
   addNewCardForm
 );
+const updateAvatarFormValidator = new FormValidator(
+  constants.settings,
+  updateAvatarImg
+);
+
 editProfileFormValidator.enableValidation();
 addCardFormValidator.enableValidation();
+updateAvatarFormValidator.enableValidation();

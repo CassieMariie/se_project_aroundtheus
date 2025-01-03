@@ -72,6 +72,35 @@
   border-radius: 50%;
 }
 
+.profile__edit-btn:hover {
+  background: url(../images/edit-profile.svg) center no-repeat;
+  opacity: 0.6;
+  cursor: pointer;
+}
+
+.profile__image-container {
+  position: relative;
+  width: 120px;
+  height: 120px;
+}
+
+.profile__image-container:hover {
+  opacity: 0.6;
+}
+
+.profile__edit-btn {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  width: 120px;
+  height: 120px;
+  background: url(../images/edit-profile.svg) center no-repeat;
+  opacity: 0;
+  border: none;
+}
+
 @media screen and (max-width: 760px) {
   .profile {
     flex-direction: column;

@@ -44,6 +44,9 @@ export const profileInputName = document.querySelector("#profile-input-name");
 export const profileInputDescription = document.querySelector(
   "#profile-input-description"
 );
+export const profileImage = document.querySelector(".profile__image");
+export const profileImageBtn = document.querySelector(".profile__edit-btn");
+export const profilePicUrl = document.querySelector("#profile-input-url");
 
 //Card Elements//
 export const cardsWrap = document.querySelector(".cards__images");
@@ -72,3 +75,8 @@ export const addNewCardButton = document.querySelector(".profile__add-button");
 export const newCardModalClose =
   addNewCardModal.querySelector("#card-modal-close");
 export const openImageClose = document.querySelector("#open-image-close");
+export const deleteImageClose = document.querySelector("#delete-image-close");
+export const editProfilePicClose = document.querySelector(
+  "#edit-picture-close"
+);
+export const deleteImageOverlay = document.querySelector("#delete-image-modal");

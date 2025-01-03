@@ -17,11 +17,18 @@
 
       <main class="content">
         <section class="profile">
-          <img
-            src="<%=require('./images/jacques-cousteau.jpg')%>"
-            alt="profile avatar"
-            class="profile__image"
-          />
+          <div class="profile__image-container" id="profile-avatar">
+            <img
+              src="<%=require('./images/jacques-cousteau.jpg')%>"
+              alt="profile avatar"
+              class="profile__image"
+            />
+            <button
+              class="profile__edit-btn"
+              id="edit-picture-button"
+              type="button"
+            ></button>
+          </div>
           <div class="profile__info">
             <h1 class="profile__title">Jaceques Cousteau</h1>
             <button
@@ -35,8 +42,7 @@
         </section>
 
         <section class="cards">
-            <ul class="cards__images"></ul>
-          </div>
+          <ul class="cards__images"></ul>
         </section>
       </main>
       <footer class="footer page__section">
@@ -59,7 +65,7 @@
             minlength="2"
             required
           />
-          <span class = "modal__error-title" id="profile-input-name-error"></span>
+          <span class="modal__error-title" id="profile-input-name-error"></span>
           <input
             type="text"
             name="profile__description"
@@ -69,8 +75,16 @@
             minlength="2"
             required
           />
-          <span class = "modal__error-description" id="profile-input-description-error"></span>
-          <button type="submit" class="modal__button-save modal__button-save_inactive">Save</button>
+          <span
+            class="modal__error-description"
+            id="profile-input-description-error"
+          ></span>
+          <button
+            type="submit"
+            class="modal__button-save modal__button-save_inactive"
+          >
+            Save
+          </button>
         </form>
       </div>
     </div>
@@ -91,7 +105,7 @@
             minlength="1"
             required
           />
-          <span class = "modal__error-title" id="card-input-title-error"></span>
+          <span class="modal__error-title" id="card-input-title-error"></span>
           <input
             type="url"
             name="card__url"
@@ -100,8 +114,17 @@
             id="card-input-url"
             required
           />
-          <span class = "modal__error-description" id="card-input-url-error"></span>
-          <button type="submit" class="modal__button-save modal__button-save_inactive" disabled>Create</button>
+          <span
+            class="modal__error-description"
+            id="card-input-url-error"
+          ></span>
+          <button
+            type="submit"
+            class="modal__button-save modal__button-save_inactive"
+            disabled
+          >
+            Create
+          </button>
         </form>
       </div>
     </div>
@@ -110,18 +133,45 @@
     <div class="modal" id="open-image-modal">
       <div class="modal__container modal__container_open_image">
         <button class="modal__button-close" id="open-image-close"></button>
-        <img src="" alt="" class="modal__image" id = "modal-open-image" />
+        <img src="" alt="" class="modal__image" id="modal-open-image" />
         <h3 class="modal__description"></h3>
       </div>
     </div>
 
-<!--Delete Image Modal-->
+    <!--Delete Image Modal-->
 
     <div class="modal" id="delete-image-modal">
       <div class="modal__container">
         <button class="modal__button-close" id="delete-image-close"></button>
-        <h2 class="modal__message"></h3>
-          <button class="modal__button-submit" id="delete-image-submit"></button>
+        <h2 class="modal__heading">Are You Sure?</h2>
+        <button class="modal__button-save" id="delete-image-submit">Yes</button>
+      </div>
+    </div>
+
+    <!--Update Profile Picture-->
+
+    <div class="modal" id="profile-picture-modal">
+      <div class="modal__container">
+        <button class="modal__button-close" id="edit-picture-close"></button>
+        <h2 class="modal__heading">Change Profile Picture</h2>
+        <form class="modal__form">
+          <input
+            type="url"
+            name="profile__url"
+            class="modal__input"
+            placeholder="Image Link"
+            id="profile-input-url"
+            required
+          />
+          <span class="modal__error-title" id="profile-input-url-error"></span>
+          <button
+            class="modal__button-save"
+            id="confirm-picture-submit"
+            disabled
+          >
+            Save
+          </button>
+        </form>
       </div>
     </div>
 
