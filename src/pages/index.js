@@ -140,13 +140,11 @@ function handleEditSubmit(inputValues) {
   api
     .updateProfile({ name: profile__name, description: profile__description })
     .then(() => {
-      userInfo.setUserInfo(
-        {
-          name: inputValues.profile__name,
-          description: inputValues.profile__description,
-        },
-        profileEditPopup.close()
-      );
+      userInfo.setUserInfo({
+        name: inputValues.profile__name,
+        description: inputValues.profile__description,
+      });
+      profileEditPopup.close();
     })
     .catch((err) => {
       console.error(err);
@@ -163,7 +161,7 @@ function handleDeleteCard(card, cardId) {
     api
       .deleteCard(cardId)
       .then(() => {
-        card._handleCardDelete();
+        card.handleCardDelete();
         modalWithConfirm.close();
       })
       .catch((err) => {
@@ -179,7 +177,8 @@ function handleEditPrfilePic(url) {
   api
     .updateAvatar(profile__url)
     .then((users) => {
-      userInfo.setUserAvatar(users.avatar), profilePicPopup.close();
+      userInfo.setUserAvatar(users.avatar);
+      profilePicPopup.close();
     })
     .catch((err) => console.error(err))
     .finally(() => profilePicPopup.setLoading(false));

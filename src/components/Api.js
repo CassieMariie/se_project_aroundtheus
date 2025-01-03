@@ -35,7 +35,7 @@ export default class Api {
     return fetch(`${this._baseUrl}/cards/${cardId}`, {
       method: "DELETE",
       headers: this._headers,
-    });
+    }).then(this._checkResponse);
   }
 
   likeCard(cardId, isLiked) {
@@ -49,7 +49,7 @@ export default class Api {
     return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
       method: "DELETE",
       headers: this._headers,
-    });
+    }).then(this._checkResponse);
   }
 
   updateProfile({ name, description }) {

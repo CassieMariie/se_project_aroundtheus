@@ -59,7 +59,7 @@ export default class Card {
       });
   }
 
-  _handleCardDelete() {
+  handleCardDelete() {
     this._element.remove();
   }
 
